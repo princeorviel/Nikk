@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>शायरी</title>
 <meta name="theme-color" content="#ff2e79">
+<link id="siteIcon" rel="icon" type="image/png" href="https://princeorviel.github.io/Nikk/icon.png">
+<link id="appleIcon" rel="apple-touch-icon" href="https://princeorviel.github.io/Nikk/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Hind:wght@400;500;600;700&family=Kalam&family=Noto+Serif+Devanagari&display=swap" rel="stylesheet">
@@ -86,15 +88,6 @@ body{
 .chip[aria-pressed="true"]{
   background:var(--g);color:#fff;border-color:transparent;
   box-shadow:0 6px 16px -4px rgba(255,46,121,.45);
-}
-
-.story-strip{
-  display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-bottom:12px;padding:2px;
-}
-.story-strip::-webkit-scrollbar{display:none}
-.st-chip{
-  flex:0 0 auto;background:var(--card);border:1px solid var(--line);border-radius:16px;
-  padding:6px 12px;font-size:.8rem;color:var(--accent);cursor:pointer;display:flex;align-items:center;gap:6px;
 }
 
 .search-wrap{
@@ -200,7 +193,6 @@ button.main{
 #jumpTop{background:var(--accent);color:#fff}
 #jumpBottom{background:var(--card);color:var(--accent);border:1px solid var(--line)}
 
-/* नीचे 💔 फ़ुटर बैज */
 .bottom-heart-footer{
   text-align:center;font-size:1.5rem;padding:10px 0 6px;user-select:none;
 }
@@ -307,9 +299,6 @@ button.main{
 .ava-preview-row{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 12px}
 .ava-big{width:54px;height:54px;border-radius:50%;background:var(--g);color:#fff;display:grid;place-items:center;font-size:1.3rem;font-weight:700;overflow:hidden;flex:0 0 auto}
 .ava-big img{width:100%;height:100%;object-fit:cover;display:block}
-.type-row{display:flex;gap:8px}
-.type-row button{flex:1;padding:9px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--accent);font:inherit;font-weight:600;cursor:pointer}
-.type-row button.active{background:var(--g);color:#fff;border-color:transparent}
 
 .notif-item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px;font-size:.9rem;color:var(--accent)}
 .notif-item b{color:var(--accent)}
@@ -355,8 +344,6 @@ button.main{
     </div>
     <div class="cat-grid" id="catGrid"></div>
   </section>
-
-  <div class="story-strip" id="storyStrip"></div>
 
   <div class="search-wrap" id="searchWrap">
     <span>🔍</span>
@@ -518,17 +505,6 @@ button.main{
     <input id="accBioInp" maxlength="100" placeholder="आपका छोटा परिचय / Bio">
     <button class="pub-btn" id="accSaveBtn" type="button">💾 प्रोफ़ाइल सेव करें</button>
     <p id="accMsg" style="margin:0;color:var(--soft);font-size:.9rem"></p>
-
-    <hr style="border:0;border-top:1px solid var(--line);margin:4px 0">
-
-    <div style="font-weight:700;color:var(--accent)">Status / Story लगाएँ</div>
-    <div class="type-row" id="ssTypeRow">
-      <button type="button" class="active" data-sstype="Status">Status</button>
-      <button type="button" data-sstype="Story">Story</button>
-    </div>
-    <textarea id="ssTextInp" rows="2" placeholder="अपना Status या Story लिखें..."></textarea>
-    <input id="ssImgInp" type="file" accept="image/*">
-    <button class="sh-tile" id="ssPostBtn" type="button">✨ Status / Story पोस्ट करें</button>
   </div>
 </div>
 
@@ -639,7 +615,6 @@ const mem={};
 function getS(k,d){try{const v=localStorage.getItem(k);if(v!=null)return JSON.parse(v)}catch(e){}return mem[k]!==undefined?mem[k]:d}
 function setS(k,v){mem[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 
-// पेज लोड/रिफ्रेश होते ही सभी खुले मोडल/पैनल बंद रखें
 function closeAllModalsOnStart(){
   ["fullReader","shareAppModal","studio","accModal","notifModal"].forEach(id=>{
     const el=$(id);if(el)el.classList.remove("open");
@@ -741,7 +716,7 @@ function wallUrl(idx,customImg){
 
 function allPosts(){
   const map=new Map();
-  cachedPosts.forEach(p=>{if(p&&(p.t||p.img))map.set(p.id,p)});
+  cachedPosts.forEach(p=>{if(p&&p.t)map.set(p.id,p)});
   buildBasePosts().forEach(p=>{if(!map.has(p.id))map.set(p.id,p)});
   return Array.from(map.values());
 }
@@ -754,24 +729,6 @@ function refreshCategorySelects(selectedVal){
     sel.innerHTML="";
     cats.forEach(c=>sel.add(new Option(c,c)));
     if(prev&&cats.includes(prev))sel.value=prev;
-  });
-}
-
-function renderStoryStrip(){
-  const strip=$("storyStrip");
-  strip.innerHTML="";
-  const items=cachedPosts.filter(p=>p.kind==="Status"||p.kind==="Story");
-  if(!items.length){strip.style.display="none";return}
-  strip.style.display="flex";
-  items.slice(0,12).forEach(it=>{
-    const chip=mk("button","st-chip");
-    chip.type="button";
-    chip.innerHTML=`<b>${it.kind}</b><span>${it.n||"User"}: ${(it.t||"").slice(0,18)}</span>`;
-    chip.onclick=()=>{
-      const idx=items.findIndex(x=>x.id===it.id);
-      openReader(items,Math.max(0,idx));
-    };
-    strip.appendChild(chip);
   });
 }
 
@@ -965,7 +922,7 @@ function canEditOrDelete(p){
 async function deletePost(postId){
   cachedPosts=cachedPosts.filter(x=>x.id!==postId);
   setS("sh_cached_posts",cachedPosts);
-  renderStoryStrip();renderChips();renderFeed();
+  renderChips();renderFeed();
   toast("पोस्ट हटा दी गई है");
   if(isLive&&db){
     try{await db.collection("shayari_posts").doc(postId).delete()}catch(e){}
@@ -1093,7 +1050,6 @@ function renderFeed(){
     card.appendChild(top);
 
     const wIdx=p.b!=null?p.b:(idx%WALLS.length);
-    const wObj=WALLS[wIdx]||WALLS[0];
     const qDiv=mk("div","q-canvas");
     qDiv.style.backgroundImage=wallUrl(wIdx,p.img);
     qDiv.style.color=p.col||"#ff69b4";
@@ -1104,13 +1060,8 @@ function renderFeed(){
       if(p.f)pt.style.fontFamily=p.f+",serif";
       qDiv.appendChild(pt);
     }
-    if(p.mediaImg){
-      const mb=mk("div","media-box");
-      const im=document.createElement("img");im.src=p.mediaImg;mb.appendChild(im);
-      qDiv.appendChild(mb);
-    }
     if(!p.isBase){
-      qDiv.append(mk("span","q-sig","— "+author+(p.kind&&p.kind!=="Shayari"?" ("+p.kind+")":"")));
+      qDiv.append(mk("span","q-sig","— "+author));
     }
     qDiv.append(mk("span","wm","शायरी"));
     qDiv.onclick=()=>openReader(visible,idx);
@@ -1384,7 +1335,6 @@ function syncPreview(){
 })();
 
 let tempAvaPhoto=myProfile.photo||"";
-let ssType="Status",ssImgData="";
 
 function refreshAccAvaBox(){
   $("accAvaBox").innerHTML=avatarHtml(myProfile.name||"User",tempAvaPhoto);
@@ -1392,12 +1342,9 @@ function refreshAccAvaBox(){
 
 function openAccountModal(){
   tempAvaPhoto=myProfile.photo||"";
-  ssImgData="";
   $("accNameInp").value=myProfile.name||"";
   $("accBioInp").value=myProfile.bio||"";
   $("accMsg").textContent="";
-  $("ssTextInp").value="";
-  $("ssImgInp").value="";
   refreshAccAvaBox();
   $("accModal").classList.add("open");
 }
@@ -1429,60 +1376,6 @@ function openAccountModal(){
     toast("प्रोफ़ाइल सेव हो गई");
   };
 
-  [...$("ssTypeRow").children].forEach(b=>{
-    b.onclick=()=>{
-      ssType=b.dataset.sstype;
-      [...$("ssTypeRow").children].forEach(x=>x.classList.toggle("active",x===b));
-    };
-  });
-
-  $("ssImgInp").onchange=e=>{
-    const f=e.target.files&&e.target.files[0];
-    if(!f){ssImgData="";return}
-    const rd=new FileReader();
-    rd.onload=ev=>{
-      compressImage(ev.target.result,720,0.72,out=>{ssImgData=out});
-    };
-    rd.readAsDataURL(f);
-  };
-
-  $("ssPostBtn").onclick=async()=>{
-    const txt=$("ssTextInp").value.trim();
-    if(!txt&&!ssImgData){toast("कृपया Status / Story लिखें या फ़ोटो चुनें");return}
-    const nm=$("accNameInp").value.trim()||myProfile.name||"User";
-    myProfile.name=nm;
-    if(tempAvaPhoto)myProfile.photo=tempAvaPhoto;
-    setS("sh_profile",myProfile);
-
-    const postId="ss_"+Date.now()+"_"+Math.random().toString(36).slice(2,6);
-    const post={
-      id:postId,
-      t:txt||(ssType+" पोस्ट"),
-      n:nm,
-      c:"रोमांटिक",
-      h:"#"+ssType.toLowerCase(),
-      kind:ssType,
-      authorPhoto:myProfile.photo||"",
-      mediaImg:ssImgData||"",
-      b:0,
-      col:"#ff69b4",
-      ts:Date.now()
-    };
-
-    cachedPosts.unshift(post);
-    setS("sh_cached_posts",cachedPosts.slice(0,300));
-    $("ssTextInp").value="";
-    $("ssImgInp").value="";
-    ssImgData="";
-    $("accModal").classList.remove("open");
-    renderStoryStrip();renderFeed();
-    toast(ssType+" लग गया ✨");
-
-    if(isLive&&db){
-      try{await db.collection("shayari_posts").doc(postId).set(post,{merge:true})}catch(e){}
-    }
-  };
-
   $("topSearchBtn").onclick=()=>{
     const sw=$("searchWrap");sw.classList.toggle("open");
     if(sw.classList.contains("open"))$("qInp").focus();
@@ -1495,7 +1388,7 @@ function openAccountModal(){
     }else{
       cachedPosts.slice(0,15).forEach(p=>{
         const item=mk("div","notif-item");
-        item.innerHTML=`<b>${p.n||"User"}</b> (${p.kind||"शायरी"}): “${(p.t||"").slice(0,55)}”`;
+        item.innerHTML=`<b>${p.n||"User"}</b>: “${(p.t||"").slice(0,55)}”`;
         nl.appendChild(item);
       });
     }
@@ -1590,7 +1483,7 @@ if(isLive&&db){
     if(incoming.length){
       cachedPosts=incoming;
       setS("sh_cached_posts",cachedPosts);
-      renderStoryStrip();renderChips();renderFeed();
+      renderChips();renderFeed();
     }
   },()=>{});
 
@@ -1642,7 +1535,6 @@ $("nextHero").onclick=pickHero;
   };
 })();
 
-renderStoryStrip();
 renderChips();
 pickHero();
 renderFeed();
