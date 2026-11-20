@@ -1,321 +1,1447 @@
+```html
 <!DOCTYPE html>
 <html lang="hi">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>शायरी</title>
-<meta name="theme-color" content="#ff2e79">
-<link id="siteIcon" rel="icon" type="image/png" href="https://princeorviel.github.io/Nikk/icon.png">
-<link id="appleIcon" rel="apple-touch-icon" href="https://princeorviel.github.io/Nikk/icon.png">
+<meta name="theme-color" content="#e91e63">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Hind:wght@400;500;600;700&family=Kalam&family=Noto+Serif+Devanagari&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#fff5fa;--card:#ffffff;--ink:#ff2e79;--soft:#c94b7d;--line:#f5cde0;
-  --chip:#ffe6f2;--accent:#ff2e79;--g:linear-gradient(135deg,#ff2e79,#ff69b4);
-  color-scheme:light;
-}
-:root[data-theme="dark"]{
-  --bg:#160814;--card:#240d21;--ink:#ff7eb6;--soft:#d47aa3;--line:#47183f;
-  --chip:#33112e;--accent:#ff5ca8;
-  color-scheme:dark;
-}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{
-  margin:0;
-  background:radial-gradient(900px 520px at 90% -5%,rgba(255,46,121,.16),transparent 60%),
-             radial-gradient(700px 520px at -10% 12%,rgba(255,105,180,.18),transparent 55%),
-             var(--bg);
-  background-attachment:fixed;
-  color:var(--ink);
-  font-family:"Hind",system-ui,sans-serif;
-  font-size:16px;line-height:1.55;
-  padding-bottom:92px;
-}
-.wrap{max-width:620px;margin:0 auto;padding:14px 16px 28px}
-
-.top-header{
-  display:flex;align-items:center;justify-content:space-between;gap:8px;
-  padding:4px 0 8px;
-}
-.brand-block{cursor:pointer;user-select:none}
-.brand{
-  font-family:"Tiro Devanagari Hindi",serif;font-size:1.85rem;font-weight:700;
-  color:var(--accent);line-height:1.15;
-}
-.tagline{margin:2px 0 0;color:var(--soft);font-size:.88rem}
-
-.top-icons{display:flex;align-items:center;gap:6px}
-.t-icon{
-  width:38px;height:38px;border-radius:12px;border:0;background:transparent;
-  color:var(--accent);display:grid;place-items:center;cursor:pointer;padding:0;
-}
-.t-icon:active{background:var(--chip)}
-.t-icon svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.t-icon.moon svg{fill:currentColor;stroke:none}
-.t-icon.grid-btn{background:rgba(255,46,121,.14);color:var(--accent)}
-.t-icon.grid-btn[aria-expanded="true"]{background:var(--accent);color:#fff}
-.t-icon.grid-btn svg{fill:currentColor;stroke:none;width:19px;height:19px}
-
-.cat-drawer{
-  display:none;background:var(--card);border:1px solid var(--line);border-radius:20px;
-  padding:12px;margin-bottom:12px;box-shadow:0 10px 28px rgba(255,46,121,.12);
-}
-.cat-drawer.open{display:block}
-.cat-drawer-head{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-bottom:10px;font-size:.9rem;font-weight:600;color:var(--soft);
-}
-.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.cat-tile{
-  background:var(--chip);color:var(--accent);border:1px solid transparent;border-radius:14px;
-  padding:9px 8px;font:inherit;font-size:.84rem;font-weight:600;cursor:pointer;
-  text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
-.cat-tile.active{background:var(--g);color:#fff}
-
-.chips{
-  display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;
-  margin:4px 0 12px;padding:6px 2px 8px;
-}
-.chips::-webkit-scrollbar{display:none}
-.chip{
-  flex:0 0 auto;background:var(--card);color:var(--accent);border:1px solid var(--line);
-  border-radius:20px;padding:7px 15px;font:inherit;font-size:.88rem;font-weight:600;
-  cursor:pointer;box-shadow:0 2px 8px rgba(255,46,121,.06);
-}
-.chip[aria-pressed="true"]{
-  background:var(--g);color:#fff;border-color:transparent;
-  box-shadow:0 6px 16px -4px rgba(255,46,121,.45);
+/* Soft blush-pink design tokens & theme variables */
+:root {
+  --bg: #fff6fb;
+  --card: #ffffff;
+  --ink: #2d1a38;
+  --soft: #7f688c;
+  --line: #f2e2f7;
+  --chip: #fceef7;
+  --accent: #e91e63;
+  --g: linear-gradient(135deg, #ff4d8d, #9c6ade);
+  color-scheme: light;
 }
 
-.search-wrap{
-  display:none;margin-bottom:12px;background:var(--card);border:1px solid var(--line);
-  border-radius:24px;padding:6px 12px;align-items:center;gap:8px;
-}
-.search-wrap.open{display:flex}
-.search-wrap input{flex:1;border:0;background:none;color:var(--accent);font:inherit;outline:none}
-.search-wrap button{border:0;background:var(--chip);color:var(--accent);border-radius:14px;padding:4px 10px;font:inherit;font-size:.82rem;cursor:pointer}
-
-.hero{
-  position:relative;min-height:250px;border-radius:22px;overflow:hidden;margin-bottom:14px;
-  background-size:cover;background-position:center;color:#ff85bc;
-  text-shadow:0 1px 6px rgba(0,0,0,.78);
-  display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
-  padding:26px 20px;box-shadow:0 14px 36px -12px rgba(255,46,121,.45);
-}
-.hero::before{
-  content:"";position:absolute;inset:12px;border:1px solid rgba(255,133,188,.5);
-  border-radius:14px;pointer-events:none;
-}
-.hero p{
-  position:relative;z-index:1;font-family:"Tiro Devanagari Hindi",serif;
-  font-size:clamp(1.25rem,5.2vw,1.65rem);line-height:1.6;margin:0 0 12px;white-space:pre-line;cursor:pointer;
-}
-.hero .mood{
-  position:relative;z-index:1;display:inline-block;background:rgba(0,0,0,.45);
-  backdrop-filter:blur(6px);padding:3px 13px;border-radius:18px;font-size:.85rem;margin-bottom:14px;color:#ff9ecd;
-}
-.hero-row{position:relative;z-index:1;display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center}
-button.main{
-  background:var(--g);color:#fff;border:0;border-radius:26px;padding:10px 22px;
-  font:inherit;font-size:.92rem;font-weight:600;cursor:pointer;
-  box-shadow:0 8px 20px -6px rgba(255,46,121,.65);
-}
-.pill-sec{
-  background:rgba(255,255,255,.95);color:#ff2e79;border:0;border-radius:26px;
-  padding:10px 18px;font:inherit;font-size:.9rem;font-weight:700;cursor:pointer;
+:root[data-theme="dark"] {
+  --bg: #120b1c;
+  --card: #1d132b;
+  --ink: #f5ebfa;
+  --soft: #a995b8;
+  --line: #36244f;
+  --chip: #291a3d;
+  --accent: #ff6aa2;
+  color-scheme: dark;
 }
 
-.post{
-  background:var(--card);border:1px solid var(--line);border-radius:24px;
-  margin-bottom:16px;padding:12px;box-shadow:0 6px 22px rgba(255,46,121,.08);
-}
-.post-top{display:flex;align-items:center;justify-content:space-between;padding:2px 4px 10px;gap:8px}
-.p-user{display:flex;align-items:center;gap:10px;min-width:0}
-.p-ava{width:38px;height:38px;border-radius:50%;border:2px dashed var(--accent);padding:2px;flex:0 0 auto;overflow:hidden}
-.p-ava span,.p-ava img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
-.p-ava span{background:var(--g);color:#fff;display:grid;place-items:center;font-weight:700;font-size:.95rem}
-.p-name{font-weight:700;font-size:.96rem;color:var(--accent);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.post-top-acts{display:flex;align-items:center;gap:6px}
-.collab-btn{
-  background:var(--chip);color:var(--accent);border:1.5px solid var(--accent);
-  border-radius:16px;padding:4px 11px;font:inherit;font-size:.78rem;font-weight:700;cursor:pointer;
-}
-.mini-act{
-  background:var(--chip);color:var(--accent);border:0;border-radius:14px;
-  padding:4px 9px;font:inherit;font-size:.78rem;cursor:pointer;
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.q-canvas{
-  position:relative;min-height:280px;border-radius:18px;overflow:hidden;
-  background-size:cover;background-position:center;
-  display:flex;flex-direction:column;justify-content:center;padding:28px 22px;
-  color:#ff69b4;text-shadow:0 1px 4px rgba(0,0,0,.72),0 2px 14px rgba(0,0,0,.5);
-  cursor:pointer;
-}
-.q-canvas::before{content:"";position:absolute;inset:10px;border:1px solid rgba(255,105,180,.42);border-radius:12px;pointer-events:none}
-.q-canvas p{position:relative;z-index:1;margin:0 0 12px;font-family:"Tiro Devanagari Hindi",serif;font-size:clamp(1.2rem,5vw,1.5rem);line-height:1.68;white-space:pre-line}
-.q-canvas .q-sig{position:relative;z-index:1;font-size:.9rem;color:#ff9ecd}
-.q-canvas .wm{position:absolute;left:16px;bottom:12px;font-size:.78rem;font-weight:600;opacity:.9;color:#ff85bc}
-
-.post-meta{padding:10px 6px 4px}
-.p-tags{color:var(--accent);font-size:.88rem;font-weight:600}
-.p-time{color:var(--soft);font-size:.74rem}
-
-.post-bar{display:flex;align-items:center;justify-content:space-between;padding-top:8px;margin-top:6px;border-top:1px solid var(--line);gap:4px}
-.bar-left,.bar-right{display:flex;align-items:center;gap:5px}
-.act{
-  background:var(--chip);border:0;color:var(--accent);height:38px;min-width:38px;
-  padding:0 10px;border-radius:19px;font:inherit;font-size:.9rem;cursor:pointer;
-  display:inline-flex;align-items:center;justify-content:center;gap:4px;
-}
-.act[aria-pressed="true"]{background:var(--g);color:#fff;font-weight:600}
-
-.cbox{margin-top:10px;padding:10px;border-radius:16px;display:grid;gap:8px;background:var(--bg);border:1px solid var(--line)}
-.clist{display:grid;gap:6px;max-height:180px;overflow-y:auto}
-.cm{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-size:.88rem;color:var(--accent)}
-.cm b{color:var(--accent);font-size:.78rem;display:block}
-.crow{display:flex;gap:8px}
-.crow input{flex:1;min-width:0;border:1px solid var(--line);background:var(--card);color:var(--accent);border-radius:20px;padding:8px 14px;font:inherit;font-size:.92rem;outline:none}
-.crow button{background:var(--g);color:#fff;border:0;border-radius:20px;padding:8px 16px;font:inherit;font-weight:600;cursor:pointer}
-
-.side-jump{
-  position:fixed;right:12px;top:50%;transform:translateY(-50%);z-index:35;
-  display:flex;flex-direction:column;gap:10px;
-}
-.jump-btn{
-  width:42px;height:42px;border-radius:50%;border:0;cursor:pointer;
-  font-size:1.15rem;font-weight:700;display:grid;place-items:center;
-  box-shadow:0 6px 18px rgba(0,0,0,.22);
-}
-#jumpTop{background:var(--accent);color:#fff}
-#jumpBottom{background:var(--card);color:var(--accent);border:1px solid var(--line)}
-
-.bottom-heart-footer{
-  text-align:center;font-size:1.5rem;padding:10px 0 6px;user-select:none;
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
-.bnav{
-  position:fixed;left:0;right:0;bottom:0;z-index:40;
-  background:var(--card);border-top:1px solid var(--line);
-  display:flex;align-items:center;justify-content:space-around;
-  height:62px;padding-bottom:env(safe-area-inset-bottom,0px);
-  box-shadow:0 -4px 16px rgba(255,46,121,.08);
-}
-.bnav button{background:none;border:0;color:var(--soft);font:inherit;font-size:.72rem;display:grid;place-items:center;gap:2px;cursor:pointer;min-width:56px}
-.bnav button.active{color:var(--accent);font-weight:700}
-.bnav button i{font-style:normal;font-size:1.25rem;line-height:1}
-.bnav .plus-btn{
-  width:52px;height:52px;border-radius:50%;background:var(--g);color:#fff;
-  font-size:1.75rem;line-height:1;box-shadow:0 6px 18px rgba(255,46,121,.55);
-  transform:translateY(-7px);display:grid;place-items:center;
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: "Hind", system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  padding-bottom: 96px;
+  position: relative;
 }
 
-.full-reader{
-  position:fixed;inset:0;z-index:130;background:#1a0b17;color:#ff69b4;
-  display:none;flex-direction:column;user-select:none;
+/* Soft-overlay background artwork container */
+.bg-artwork-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
 }
-.full-reader.open{display:flex}
-.fr-top{
-  position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;
-  padding:16px 18px 8px;
+
+.bg-artwork-layer svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.28;
 }
-.fr-circle{
-  width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,105,180,.35);
-  background:rgba(0,0,0,.4);color:#ff69b4;font-size:1.25rem;cursor:pointer;
-  display:grid;place-items:center;
+
+:root[data-theme="dark"] .bg-artwork-layer svg {
+  opacity: 0.22;
 }
-.fr-scroll{
-  flex:1;overflow-y:auto;padding:8px 18px 24px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
+
+.bg-tint-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(900px 520px at 90% -5%, rgba(156, 106, 222, 0.14), transparent 60%),
+              radial-gradient(700px 520px at -10% 12%, rgba(255, 77, 141, 0.12), transparent 55%),
+              linear-gradient(180deg, rgba(255, 246, 251, 0.84), rgba(255, 246, 251, 0.92));
 }
-.fr-card{
-  position:relative;width:100%;max-width:440px;min-height:500px;border-radius:26px;
-  background-size:cover;background-position:center;padding:38px 24px;
-  display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
-  box-shadow:0 18px 44px rgba(0,0,0,.55);
+
+:root[data-theme="dark"] .bg-tint-overlay {
+  background: radial-gradient(900px 520px at 90% -5%, rgba(156, 106, 222, 0.16), transparent 60%),
+              radial-gradient(700px 520px at -10% 12%, rgba(255, 77, 141, 0.14), transparent 55%),
+              linear-gradient(180deg, rgba(18, 11, 28, 0.82), rgba(18, 11, 28, 0.92));
 }
-.fr-card::before{
-  content:"";position:absolute;inset:14px;border:1px solid rgba(255,105,180,.4);
-  border-radius:18px;pointer-events:none;
+
+:root[data-theme="dark"] .bg-artwork-layer svg {
+  opacity: 0.14;
 }
-.fr-cat-pill{
-  position:relative;z-index:2;background:rgba(0,0,0,.5);border:1px solid rgba(255,105,180,.5);
-  color:#ff85bc;padding:5px 16px;border-radius:20px;font-size:.92rem;font-weight:600;
-  margin-bottom:24px;
+
+.bg-tint-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(900px 520px at 90% -5%, rgba(156, 106, 222, 0.14), transparent 60%),
+              radial-gradient(700px 520px at -10% 12%, rgba(255, 77, 141, 0.12), transparent 55%),
+              linear-gradient(180deg, rgba(255, 246, 251, 0.72), rgba(255, 246, 251, 0.86));
 }
-.fr-quote-mark{position:relative;z-index:2;font-size:2rem;color:#ff4d94;line-height:1;margin-bottom:10px}
-.fr-text{
-  position:relative;z-index:2;margin:0 0 24px;font-family:"Tiro Devanagari Hindi",serif;
-  font-size:clamp(1.45rem,6vw,2rem);line-height:1.75;white-space:pre-line;
-  color:#ff69b4;text-shadow:0 2px 10px rgba(0,0,0,.82);
+
+:root[data-theme="dark"] .bg-tint-overlay {
+  background: radial-gradient(900px 520px at 90% -5%, rgba(156, 106, 222, 0.16), transparent 60%),
+              radial-gradient(700px 520px at -10% 12%, rgba(255, 77, 141, 0.14), transparent 55%),
+              linear-gradient(180deg, rgba(18, 11, 28, 0.76), rgba(18, 11, 28, 0.88));
 }
-.fr-sig{position:relative;z-index:2;font-size:1rem;color:#ff9ecd;letter-spacing:.04em}
 
-.studio,.modal{position:fixed;inset:0;z-index:100;background:var(--bg);display:none;flex-direction:column;overflow-y:auto}
-.studio.open,.modal.open{display:flex}
-.st-head{background:var(--g);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:12px 14px;position:sticky;top:0;z-index:5}
-.st-head h3{margin:0;font-size:1.15rem;font-weight:600}
-.st-nav{background:none;border:0;color:#fff;font-size:1.35rem;cursor:pointer;padding:4px 8px}
-
-.st-step{flex:1;display:none;flex-direction:column}
-.st-step.active{display:flex}
-.compose-area{flex:1;min-height:220px;width:100%;border:0;outline:none;resize:none;padding:20px;font-family:"Tiro Devanagari Hindi",serif;font-size:1.25rem;line-height:1.7;background:var(--card);color:var(--accent)}
-.compose-foot{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-top:1px solid var(--line);background:var(--card);color:var(--soft);font-size:.9rem}
-
-.design-stage{background:var(--chip);padding:14px;display:grid;place-items:center;min-height:260px}
-.design-card{width:100%;max-width:360px;min-height:240px;border-radius:16px;position:relative;background-size:cover;background-position:center;padding:24px 20px;display:flex;flex-direction:column;justify-content:center;box-shadow:0 10px 26px rgba(255,46,121,.2)}
-.design-card p{margin:0 0 12px;font-family:"Tiro Devanagari Hindi",serif;font-size:1.2rem;line-height:1.6;white-space:pre-line}
-.design-card .d-sig{font-size:.88rem;opacity:.92}
-.design-card .wm{position:absolute;left:14px;bottom:10px;font-size:.75rem;opacity:.85}
-
-.st-tabs{display:flex;border-bottom:1px solid var(--line);background:var(--card)}
-.st-tabs button{flex:1;padding:12px;background:none;border:0;border-bottom:3px solid transparent;font:inherit;font-weight:600;color:var(--soft);cursor:pointer}
-.st-tabs button.active{color:var(--accent);border-bottom-color:var(--accent)}
-.st-panel{padding:14px;display:grid;gap:12px;background:var(--card)}
-.wall-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.wall-tile{height:64px;border-radius:12px;border:2px solid transparent;background-size:cover;background-position:center;cursor:pointer;display:grid;place-items:center;font-size:.75rem;font-weight:600;color:var(--accent);background-color:var(--chip);text-align:center}
-.wall-tile.active{border-color:var(--accent)}
-.ctrl-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.ctrl-row select,.ctrl-row input{flex:1;min-width:120px;padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--accent);font:inherit}
-.swatch{width:32px;height:32px;border-radius:50%;border:2px solid var(--line);cursor:pointer}
-
-.share-box{padding:16px;display:grid;gap:12px;max-width:480px;margin:0 auto;width:100%}
-.share-box input,.share-box select,.modal-body input,.modal-body textarea,.modal-body select{
-  width:100%;padding:11px 14px;border-radius:14px;border:1px solid var(--line);
-  background:var(--card);color:var(--accent);font:inherit;
+.wrap {
+  position: relative;
+  z-index: 2;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 14px 16px 28px;
 }
-.cat-add-row{display:flex;gap:8px;align-items:center}
-.cat-add-row input{flex:1}
-.cat-add-row button{background:var(--chip);color:var(--accent);border:1px solid var(--accent);border-radius:14px;padding:10px 12px;font:inherit;font-weight:600;cursor:pointer;white-space:nowrap}
 
-.pub-btn{background:var(--g);color:#fff;border:0;border-radius:24px;padding:13px;font:inherit;font-size:1.05rem;font-weight:700;cursor:pointer;box-shadow:0 8px 22px -6px rgba(255,46,121,.65)}
-.share-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.sh-tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;font:inherit;font-weight:600;color:var(--accent);cursor:pointer;text-align:center}
+/* Top brand header */
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 0 8px;
+}
 
-.modal-body{padding:16px;display:grid;gap:12px;max-width:520px;margin:0 auto;width:100%}
-.ava-preview-row{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 12px}
-.ava-big{width:54px;height:54px;border-radius:50%;background:var(--g);color:#fff;display:grid;place-items:center;font-size:1.3rem;font-weight:700;overflow:hidden;flex:0 0 auto}
-.ava-big img{width:100%;height:100%;object-fit:cover;display:block}
+.brand-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  min-width: 0;
+}
 
-.notif-item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px;font-size:.9rem;color:var(--accent)}
-.notif-item b{color:var(--accent)}
+.logo-badge {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 2px solid rgba(233, 30, 99, 0.28);
+  box-shadow: 0 6px 16px rgba(233, 30, 99, 0.16);
+  background: #1d0c09;
+  display: grid;
+  place-items: center;
+}
 
-.empty{text-align:center;color:var(--soft);padding:36px 12px}
-.toast{position:fixed;left:50%;bottom:78px;transform:translateX(-50%);background:#241238;color:#fff;padding:9px 18px;border-radius:20px;font-size:.88rem;z-index:999;opacity:0;pointer-events:none;transition:opacity .25s}
-.toast.show{opacity:1}
+.logo-badge svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.brand-titles {
+  min-width: 0;
+}
+
+.brand {
+  font-family: "Tiro Devanagari Hindi", serif;
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1.12;
+}
+
+.tagline {
+  margin: 2px 0 0;
+  color: var(--soft);
+  font-size: 0.86rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.top-icons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.t-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.18s ease, transform 0.15s ease;
+}
+
+.t-icon:hover {
+  background: var(--chip);
+}
+
+.t-icon:active {
+  background: var(--chip);
+  transform: scale(0.95);
+}
+
+.t-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.t-icon.moon svg {
+  fill: currentColor;
+  stroke: none;
+}
+
+.t-icon.grid-btn {
+  background: rgba(233, 30, 99, 0.12);
+  color: var(--accent);
+}
+
+.t-icon.grid-btn[aria-expanded="true"] {
+  background: var(--g);
+  color: #fff;
+}
+
+.t-icon.grid-btn svg {
+  fill: currentColor;
+  stroke: none;
+  width: 18px;
+  height: 18px;
+}
+
+/* Category drawer grid */
+.cat-drawer {
+  display: none;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 10px 28px rgba(80, 40, 120, 0.08);
+}
+
+.cat-drawer.open {
+  display: block;
+}
+
+.cat-drawer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--soft);
+}
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.cat-tile {
+  background: var(--chip);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 9px 8px;
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.16s ease;
+}
+
+.cat-tile.active {
+  background: var(--g);
+  color: #fff;
+  border-color: transparent;
+  font-weight: 600;
+}
+
+/* Horizontal category chips */
+.chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin: 4px 0 12px;
+  padding: 6px 2px 8px;
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex: 0 0 auto;
+  background: var(--card);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 7px 15px;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(80, 40, 120, 0.04);
+  transition: all 0.18s ease;
+}
+
+.chip[aria-pressed="true"] {
+  background: var(--g);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 6px 16px -4px rgba(233, 30, 99, 0.38);
+  font-weight: 600;
+}
+
+/* Search bar */
+.search-wrap {
+  display: none;
+  margin-bottom: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 6px 12px;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(80, 40, 120, 0.05);
+}
+
+.search-wrap.open {
+  display: flex;
+}
+
+.search-wrap input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  outline: none;
+}
+
+.search-wrap button {
+  border: 0;
+  background: var(--chip);
+  color: var(--ink);
+  border-radius: 14px;
+  padding: 5px 11px;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Hero featured card */
+.hero {
+  position: relative;
+  min-height: 256px;
+  border-radius: 22px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  background: linear-gradient(145deg, #2d1638 0%, #461b3d 52%, #22102b 100%);
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.72);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 28px 22px;
+  box-shadow: 0 14px 36px -12px rgba(156, 106, 222, 0.34);
+  border: 1px solid var(--line);
+}
+
+.hero-art-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-art-bg svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-art-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(circle at 50% 45%, rgba(20, 8, 28, 0.28) 0%, rgba(20, 8, 28, 0.66) 100%);
+  pointer-events: none;
+}
+
+.hero-art-bg svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-art-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(160deg, rgba(45, 26, 56, 0.56), rgba(233, 30, 99, 0.34) 55%, rgba(24, 12, 34, 0.72));
+  pointer-events: none;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 14px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero p {
+  position: relative;
+  z-index: 2;
+  font-family: "Tiro Devanagari Hindi", serif;
+  font-size: clamp(1.25rem, 5.2vw, 1.65rem);
+  line-height: 1.62;
+  margin: 0 0 12px;
+  white-space: pre-line;
+  cursor: pointer;
+}
+
+.hero .mood {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 3px 14px;
+  border-radius: 18px;
+  font-size: 0.85rem;
+  margin-bottom: 14px;
+  color: #ffe3ee;
+  font-weight: 500;
+}
+
+.hero-row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+button.main {
+  background: var(--g);
+  color: #fff;
+  border: 0;
+  border-radius: 26px;
+  padding: 10px 22px;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 20px -6px rgba(233, 30, 99, 0.48);
+  transition: transform 0.15s ease;
+}
+
+button.main:active {
+  transform: scale(0.97);
+}
+
+.pill-sec {
+  background: rgba(255, 255, 255, 0.95);
+  color: #2d1a38;
+  border: 0;
+  border-radius: 26px;
+  padding: 10px 18px;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
+  transition: transform 0.15s ease;
+}
+
+.pill-sec:active {
+  transform: scale(0.97);
+}
+
+/* Feed post cards */
+.post {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  margin-bottom: 16px;
+  padding: 12px;
+  box-shadow: 0 6px 22px rgba(80, 40, 120, 0.06);
+}
+
+.post-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 4px 10px;
+  gap: 8px;
+}
+
+.p-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.p-ava {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px dashed var(--accent);
+  padding: 2px;
+  flex: 0 0 auto;
+  overflow: hidden;
+}
+
+.p-ava span, .p-ava img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.p-ava span {
+  background: var(--g);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.p-name {
+  font-weight: 600;
+  font-size: 0.96rem;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.post-top-acts {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.collab-btn {
+  background: var(--chip);
+  color: var(--accent);
+  border: 1.5px solid rgba(233, 30, 99, 0.42);
+  border-radius: 16px;
+  padding: 4px 11px;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mini-act {
+  background: var(--chip);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 4px 9px;
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.q-canvas {
+  position: relative;
+  min-height: 270px;
+  border-radius: 18px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 28px 22px;
+  cursor: pointer;
+}
+
+.q-canvas::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.q-canvas p {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 12px;
+  font-family: "Tiro Devanagari Hindi", serif;
+  font-size: clamp(1.2rem, 5vw, 1.5rem);
+  line-height: 1.68;
+  white-space: pre-line;
+}
+
+.q-canvas .q-sig {
+  position: relative;
+  z-index: 2;
+  font-size: 0.9rem;
+  opacity: 0.92;
+}
+
+.q-canvas .wm {
+  position: absolute;
+  left: 16px;
+  bottom: 12px;
+  z-index: 2;
+  font-size: 0.78rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.post-meta {
+  padding: 10px 6px 4px;
+}
+
+.p-tags {
+  color: var(--accent);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.p-time {
+  color: var(--soft);
+  font-size: 0.74rem;
+}
+
+/* 4-button action bar: ONLY Like, Comment, Collab, Share */
+.post-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 8px;
+  margin-top: 6px;
+  border-top: 1px solid var(--line);
+  gap: 6px;
+}
+
+.bar-left, .bar-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.act {
+  background: var(--chip);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  height: 38px;
+  min-width: 42px;
+  padding: 0 12px;
+  border-radius: 19px;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: all 0.16s ease;
+}
+
+.act[aria-pressed="true"] {
+  background: rgba(233, 30, 99, 0.14);
+  border-color: rgba(233, 30, 99, 0.35);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Inline comment drawer */
+.cbox {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 16px;
+  display: grid;
+  gap: 8px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+
+.clist {
+  display: grid;
+  gap: 6px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.cm {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 7px 10px;
+  font-size: 0.88rem;
+}
+
+.cm b {
+  color: var(--accent);
+  font-size: 0.78rem;
+  display: block;
+}
+
+.crow {
+  display: flex;
+  gap: 8px;
+}
+
+.crow input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  border-radius: 20px;
+  padding: 8px 14px;
+  font: inherit;
+  font-size: 0.92rem;
+  outline: none;
+}
+
+.crow button {
+  background: var(--g);
+  color: #fff;
+  border: 0;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Quick scroll right-middle ↑ and ↓ buttons */
+.side-jump {
+  position: fixed;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 35;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.jump-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 0;
+  cursor: pointer;
+  font-size: 1.15rem;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+}
+
+#jumpTop {
+  background: var(--g);
+  color: #fff;
+}
+
+#jumpBottom {
+  background: var(--card);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+/* Broken heart footer badge above bottom nav */
+.bottom-heart-footer {
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 12px 0 6px;
+  user-select: none;
+}
+
+/* Bottom navigation bar */
+.bnav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  background: var(--card);
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 62px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 -4px 16px rgba(80, 40, 120, 0.06);
+}
+
+.bnav button {
+  background: none;
+  border: 0;
+  color: var(--soft);
+  font: inherit;
+  font-size: 0.72rem;
+  display: grid;
+  place-items: center;
+  gap: 2px;
+  cursor: pointer;
+  min-width: 56px;
+  padding: 4px 2px;
+}
+
+.bnav button.active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.bnav button i {
+  font-style: normal;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.bnav .plus-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--g);
+  color: #fff;
+  font-size: 1.75rem;
+  line-height: 1;
+  box-shadow: 0 6px 18px rgba(233, 30, 99, 0.44);
+  transform: translateY(-7px);
+  display: grid;
+  place-items: center;
+}
+
+/* Full-screen swipeable reader modal */
+.full-reader {
+  position: fixed;
+  inset: 0;
+  z-index: 130;
+  background: #1a1024;
+  color: #fff;
+  display: none;
+  flex-direction: column;
+  user-select: none;
+}
+
+.full-reader.open {
+  display: flex;
+}
+
+.fr-top {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px 8px;
+}
+
+.fr-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(0, 0, 0, 0.38);
+  color: #fff;
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.fr-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 18px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.fr-card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  min-height: 480px;
+  border-radius: 26px;
+  background-size: cover;
+  background-position: center;
+  padding: 38px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
+}
+
+.fr-card::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 18px;
+  pointer-events: none;
+}
+
+.fr-cat-pill {
+  position: relative;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 192, 218, 0.45);
+  color: #ffc2da;
+  padding: 5px 16px;
+  border-radius: 20px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-bottom: 22px;
+}
+
+.fr-quote-mark {
+  position: relative;
+  z-index: 2;
+  font-size: 2rem;
+  color: #ff9ec4;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.fr-text {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 22px;
+  font-family: "Tiro Devanagari Hindi", serif;
+  font-size: clamp(1.45rem, 6vw, 2rem);
+  line-height: 1.75;
+  white-space: pre-line;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.75);
+}
+
+.fr-sig {
+  position: relative;
+  z-index: 2;
+  font-size: 1rem;
+  color: #ffd6e7;
+  letter-spacing: 0.04em;
+}
+
+.fr-hint {
+  position: relative;
+  z-index: 2;
+  margin-top: 14px;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Studio & Modals */
+.studio, .modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--bg);
+  display: none;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.studio.open, .modal.open {
+  display: flex;
+}
+
+.st-head {
+  background: var(--g);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.st-head h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.st-nav {
+  background: none;
+  border: 0;
+  color: #fff;
+  font-size: 1.35rem;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.st-step {
+  flex: 1;
+  display: none;
+  flex-direction: column;
+}
+
+.st-step.active {
+  display: flex;
+}
+
+.compose-area {
+  flex: 1;
+  min-height: 220px;
+  width: 100%;
+  border: 0;
+  outline: none;
+  resize: none;
+  padding: 20px;
+  font-family: "Tiro Devanagari Hindi", serif;
+  font-size: 1.25rem;
+  line-height: 1.7;
+  background: var(--card);
+  color: var(--ink);
+}
+
+.compose-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  border-top: 1px solid var(--line);
+  background: var(--card);
+  color: var(--soft);
+  font-size: 0.9rem;
+}
+
+.design-stage {
+  background: var(--chip);
+  padding: 14px;
+  display: grid;
+  place-items: center;
+  min-height: 250px;
+}
+
+.design-card {
+  width: 100%;
+  max-width: 360px;
+  min-height: 230px;
+  border-radius: 16px;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 10px 26px rgba(80, 40, 120, 0.14);
+}
+
+.design-card p {
+  margin: 0 0 12px;
+  font-family: "Tiro Devanagari Hindi", serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.design-card .d-sig {
+  font-size: 0.88rem;
+  opacity: 0.92;
+}
+
+.design-card .wm {
+  position: absolute;
+  left: 14px;
+  bottom: 10px;
+  font-size: 0.75rem;
+  opacity: 0.85;
+}
+
+.st-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--line);
+  background: var(--card);
+}
+
+.st-tabs button {
+  flex: 1;
+  padding: 12px;
+  background: none;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  font: inherit;
+  font-weight: 600;
+  color: var(--soft);
+  cursor: pointer;
+}
+
+.st-tabs button.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.st-panel {
+  padding: 14px;
+  display: grid;
+  gap: 12px;
+  background: var(--card);
+}
+
+.wall-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.wall-tile {
+  height: 64px;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ink);
+  background-color: var(--chip);
+  text-align: center;
+}
+
+.wall-tile.active {
+  border-color: var(--accent);
+}
+
+.ctrl-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.ctrl-row select, .ctrl-row input {
+  flex: 1;
+  min-width: 120px;
+  padding: 9px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+}
+
+.swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  cursor: pointer;
+}
+
+.share-box {
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.share-box input, .share-box select, .modal-body input, .modal-body textarea, .modal-body select {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+}
+
+.cat-add-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cat-add-row input {
+  flex: 1;
+}
+
+.cat-add-row button {
+  background: var(--chip);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 14px;
+  padding: 10px 12px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.pub-btn {
+  background: var(--g);
+  color: #fff;
+  border: 0;
+  border-radius: 24px;
+  padding: 13px;
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 22px -6px rgba(233, 30, 99, 0.45);
+}
+
+.share-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.sh-tile {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 12px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: center;
+}
+
+.modal-body {
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+  max-width: 520px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.ava-preview-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 10px 12px;
+}
+
+.ava-big {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--g);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.ava-big img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.notif-item {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+}
+
+.notif-item b {
+  color: var(--accent);
+}
+
+.empty {
+  text-align: center;
+  color: var(--soft);
+  padding: 36px 12px;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 78px;
+  transform: translateX(-50%);
+  background: #2d1a38;
+  color: #fff;
+  padding: 9px 18px;
+  border-radius: 20px;
+  font-size: 0.88rem;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+  max-width: 90vw;
+  text-align: center;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+@media (max-width: 380px) {
+  .brand {
+    font-size: 1.55rem;
+  }
+  .logo-badge {
+    width: 40px;
+    height: 40px;
+  }
+  .t-icon {
+    width: 34px;
+    height: 34px;
+  }
+}
 </style>
 </head>
 <body>
 
+<!-- Soft-overlay background artwork (sad girl & emotional bewafai shayari motif) -->
+<div class="bg-artwork-layer" aria-hidden="true">
+  <svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="bgGradMain" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#3b2618"/>
+        <stop offset="55%" stop-color="#241326"/>
+        <stop offset="100%" stop-color="#140b1c"/>
+      </linearGradient>
+      <radialGradient id="faceGlowBg" cx="45%" cy="45%" r="55%">
+        <stop offset="0%" stop-color="#e59f58"/>
+        <stop offset="70%" stop-color="#985226"/>
+        <stop offset="100%" stop-color="#3b1d12"/>
+      </radialGradient>
+    </defs>
+    <rect width="800" height="500" fill="url(#bgGradMain)"/>
+    <circle cx="215" cy="245" r="190" fill="#ff4d8d" opacity="0.14"/>
+    <ellipse cx="215" cy="245" rx="135" ry="175" fill="url(#faceGlowBg)"/>
+<!-- Soft-overlay background artwork (clean soft bokeh & rose-plum wash, no overlapping text) -->
+<div class="bg-artwork-layer" aria-hidden="true">
+  <svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="bgSoftWash" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#ffd9ea"/>
+        <stop offset="55%" stop-color="#f5e6ff"/>
+        <stop offset="100%" stop-color="#ffe8f2"/>
+      </linearGradient>
+    </defs>
+    <rect width="800" height="500" fill="url(#bgSoftWash)"/>
+    <circle cx="150" cy="110" r="145" fill="#ff6aa2" opacity="0.24"/>
+    <circle cx="670" cy="140" r="170" fill="#b784f0" opacity="0.2"/>
+    <circle cx="420" cy="390" r="190" fill="#ff9ec4" opacity="0.22"/>
+  </svg>
+</div>
+<div class="bg-tint-overlay" aria-hidden="true"></div>
+
 <div class="wrap">
+  <!-- Top brand header -->
   <header class="top-header">
     <div class="brand-block" id="brandBtn" title="टैप करने पर रिफ्रेश होगा | 3 बार टैप करने पर संख्या दिखेगी">
-      <div class="brand">शायरी</div>
-      <p class="tagline">दिल की बात, शायरी के साथ ✨</p>
+      <span class="logo-badge" aria-hidden="true">
+        <!-- Inline SVG brand logo: sad girl with glowing broken heart and golden feather -->
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="logoBg" cx="50%" cy="42%" r="58%">
+              <stop offset="0%" stop-color="#6b2d16"/>
+              <stop offset="65%" stop-color="#290e0c"/>
+              <stop offset="100%" stop-color="#120714"/>
+            </radialGradient>
+            <radialGradient id="brokenHeartGlow" cx="50%" cy="50%" r="55%">
+              <stop offset="0%" stop-color="#ff5478"/>
+              <stop offset="100%" stop-color="#8b0924"/>
+            </radialGradient>
+          </defs>
+          <circle cx="60" cy="60" r="58" fill="url(#logoBg)" stroke="#e69d4c" stroke-width="2.5"/>
+          <ellipse cx="60" cy="41" rx="21" ry="24" fill="#d99a64"/>
+          <path d="M37 42C37 21 83 21 83 42C83 31 74 23 60 23C46 23 37 31 37 42Z" fill="#180b12"/>
+          <path d="M47 38Q51 35 55 38M65 38Q69 35 73 38" stroke="#2d1412" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <ellipse cx="51" cy="42" rx="3" ry="2.2" fill="#26100e"/>
+          <ellipse cx="69" cy="42" rx="3" ry="2.2" fill="#26100e"/>
+          <circle cx="50" cy="41.3" r="0.9" fill="#fff"/>
+          <circle cx="68" cy="41.3" r="0.9" fill="#fff"/>
+          <path d="M49 47Q48 53 49 57M71 47Q72 53 71 57" stroke="#bfe8ff" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.88"/>
+          <path d="M55 55Q60 53 65 55" stroke="#7d2c2c" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M60 72C52 63 39 71 60 91C81 71 68 63 60 72Z" fill="url(#brokenHeartGlow)" stroke="#ffb3c6" stroke-width="1.2"/>
+          <path d="M60 72L57 78L62 83L59 90" stroke="#ffe6a3" stroke-width="1.6" fill="none"/>
+          <path d="M34 99Q62 95 88 85Q74 96 42 103Z" fill="#f5be4f" opacity="0.95"/>
+        </svg>
+      </span>
+      <div class="brand-titles">
+        <div class="brand">शायरी</div>
+        <p class="tagline">दिल की बात, शायरी के साथ ✨</p>
+      </div>
     </div>
+
     <div class="top-icons">
       <button class="t-icon" id="topSearchBtn" type="button" aria-label="Search">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16.5" y2="16.5"/></svg>
@@ -323,7 +1449,7 @@ button.main{
       <button class="t-icon" id="topBellBtn" type="button" aria-label="Notifications">
         <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       </button>
-      <button class="t-icon" id="topShareBtn" type="button" aria-label="Share / Install / Download">
+      <button class="t-icon" id="topShareBtn" type="button" aria-label="Share or Install">
         <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
       </button>
       <button class="t-icon moon" id="themeBtn" type="button" aria-label="Theme">
@@ -335,8 +1461,10 @@ button.main{
     </div>
   </header>
 
+  <!-- Category chips -->
   <div class="chips" id="chips"></div>
 
+  <!-- Category grid drawer -->
   <section class="cat-drawer" id="catDrawer">
     <div class="cat-drawer-head">
       <span>सभी श्रेणियाँ चुनें</span>
@@ -345,13 +1473,29 @@ button.main{
     <div class="cat-grid" id="catGrid"></div>
   </section>
 
-  <div class="search-wrap" id="searchWrap">
-    <span>🔍</span>
-    <input id="qInp" type="search" placeholder="शायरी, लेखक या #हैशटैग खोजें…">
-    <button id="qClr" type="button">साफ़</button>
-  </div>
-
+  <!-- Featured Hero Card with clean calm bokeh & soft dark scrim for crisp readability -->
   <section class="hero" id="heroBox">
+    <div class="hero-art-bg" aria-hidden="true">
+      <svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="heroPlumGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#31173b"/>
+            <stop offset="50%" stop-color="#4d1d42"/>
+            <stop offset="100%" stop-color="#23102e"/>
+          </linearGradient>
+        </defs>
+        <rect width="800" height="500" fill="url(#heroPlumGrad)"/>
+        <circle cx="170" cy="125" r="125" fill="#ff5c9d" opacity="0.18"/>
+        <circle cx="635" cy="120" r="140" fill="#a777e8" opacity="0.16"/>
+        <circle cx="660" cy="390" r="130" fill="#ff85bc" opacity="0.14"/>
+        <circle cx="130" cy="385" r="110" fill="#8b5cf6" opacity="0.14"/>
+        <circle cx="240" cy="80" r="2.5" fill="#ffe3ee" opacity="0.65"/>
+        <circle cx="560" cy="95" r="2" fill="#ffd6e7" opacity="0.55"/>
+        <circle cx="690" cy="240" r="2.5" fill="#ffe3ee" opacity="0.5"/>
+        <circle cx="110" cy="255" r="2" fill="#ffd6e7" opacity="0.55"/>
+      </svg>
+    </div>
+    <div class="hero-art-scrim" aria-hidden="true"></div>
     <p id="heroText" title="फ़ुल-स्क्रीन पढ़ने के लिए टैप करें"></p>
     <span class="mood" id="heroMood"></span>
     <div class="hero-row">
@@ -360,17 +1504,21 @@ button.main{
     </div>
   </section>
 
+  <!-- Feed container -->
   <main id="feed"></main>
 
-  <div class="bottom-heart-footer">💔</div>
+  <!-- Broken heart footer badge above bottom nav -->
+  <div class="bottom-heart-footer" aria-label="Broken Heart">💔</div>
 </div>
 
+<!-- Quick scroll right-middle ↑ and ↓ buttons -->
 <div class="side-jump" aria-label="ऊपर या नीचे जाएँ">
   <button class="jump-btn" id="jumpTop" type="button" title="सबसे ऊपर जाएँ">↑</button>
   <button class="jump-btn" id="jumpBottom" type="button" title="सबसे नीचे जाएँ">↓</button>
 </div>
 
-<nav class="bnav">
+<!-- Bottom navigation bar -->
+<nav class="bnav" aria-label="मुख्य नेविगेशन">
   <button id="navHome" class="active" type="button"><i>🏠</i>Home</button>
   <button id="navSearch" type="button"><i>🔍</i>Search</button>
   <button id="navPlus" class="plus-btn" type="button" aria-label="नई शायरी लिखें">+</button>
@@ -378,6 +1526,7 @@ button.main{
   <button id="navProfile" type="button"><i>👤</i>Profile</button>
 </nav>
 
+<!-- Full-screen swipeable reader modal -->
 <div class="full-reader" id="fullReader" aria-modal="true" role="dialog">
   <div class="fr-top">
     <button class="fr-circle" id="frBack" type="button" aria-label="वापस जाएँ">←</button>
@@ -389,26 +1538,28 @@ button.main{
       <div class="fr-quote-mark">“</div>
       <p class="fr-text" id="frText"></p>
       <div class="fr-sig" id="frSig">— _ शायरी —</div>
+      <div class="fr-hint">बाईं या दाईं ओर स्वाइप करें • कार्ड सेव करने के लिए देर तक दबाएँ</div>
     </div>
   </div>
 </div>
 
+<!-- Share / Install Modal -->
 <div class="modal" id="shareAppModal">
   <div class="st-head">
     <button class="st-nav" id="shareAppClose" type="button">←</button>
-    <h3>Share / Install / Download</h3>
+    <h3>Share / Install</h3>
     <span style="width:28px"></span>
   </div>
   <div class="modal-body">
     <input id="siteLinkInp" type="url" placeholder="अपना लाइव वेबसाइट लिंक डालें (जैसे: https://princeorviel.github.io/Nikk/)">
-    <button class="pub-btn" id="actShareApp" type="button">↗ वेबसाइट लिंक / ऐप फ़ाइल शेयर करें</button>
-    <button class="sh-tile" id="actShareFile" type="button">📄 पूरी ऐप फ़ाइल (शायरी.html) WhatsApp पर भेजें</button>
-    <button class="sh-tile" id="actDownloadHtml" type="button">⬇️ वेबसाइट फ़ाइल (शायरी.html) डाउनलोड करें</button>
+    <button class="pub-btn" id="actShareApp" type="button">↗ वेबसाइट लिंक शेयर करें</button>
+    <button class="sh-tile" id="actCopyLink" type="button">📋 लिंक कॉपी करें</button>
     <button class="sh-tile" id="actInstallApp" type="button">📲 App की तरह Install करें (Add to Home Screen)</button>
-    <p id="shareAppMsg" style="margin:0;color:var(--soft);font-size:.88rem;line-height:1.5"></p>
+    <p id="shareAppMsg" style="margin:0;color:var(--soft);font-size:0.88rem;line-height:1.5"></p>
   </div>
 </div>
 
+<!-- 3-step Compose / Design / Share Studio -->
 <div class="studio" id="studio">
   <div class="st-head">
     <button class="st-nav" id="stBack" type="button">←</button>
@@ -479,17 +1630,18 @@ button.main{
       </div>
       <button class="pub-btn" id="btnPublish" type="button">🚀 PUBLISH (सबके साथ शेयर करें)</button>
       <div class="share-grid">
-        <button class="sh-tile" id="btnWa" type="button">💬 WhatsApp</button>
+        <button class="sh-tile" id="btnShareCardText" type="button">↗ शायरी शेयर करें</button>
         <button class="sh-tile" id="btnImg" type="button">🖼️ कार्ड डाउनलोड</button>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Account / Profile Modal (Status/Story completely removed) -->
 <div class="modal" id="accModal">
   <div class="st-head">
     <button class="st-nav" id="accClose" type="button">←</button>
-    <h3>Account</h3>
+    <h3>Profile</h3>
     <span style="width:28px"></span>
   </div>
   <div class="modal-body">
@@ -500,14 +1652,14 @@ button.main{
         <input id="accPhotoInp" type="file" accept="image/*">
       </div>
     </div>
-
     <input id="accNameInp" maxlength="40" placeholder="आपका नाम / अकाउंट नाम">
     <input id="accBioInp" maxlength="100" placeholder="आपका छोटा परिचय / Bio">
     <button class="pub-btn" id="accSaveBtn" type="button">💾 प्रोफ़ाइल सेव करें</button>
-    <p id="accMsg" style="margin:0;color:var(--soft);font-size:.9rem"></p>
+    <p id="accMsg" style="margin:0;color:var(--soft);font-size:0.9rem"></p>
   </div>
 </div>
 
+<!-- Notifications Modal -->
 <div class="modal" id="notifModal">
   <div class="st-head">
     <button class="st-nav" id="notifClose" type="button">←</button>
@@ -517,713 +1669,780 @@ button.main{
   <div class="modal-body" id="notifList"></div>
 </div>
 
+<!-- Custom message box for reader long-press download confirmation -->
+<div class="modal" id="confirmBoxModal" style="background:rgba(24,12,34,0.65);justify-content:center;padding:18px;z-index:160">
+  <div style="background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;max-width:360px;width:100%;margin:auto;display:grid;gap:14px;box-shadow:0 18px 40px rgba(0,0,0,0.35)">
+    <div style="font-weight:700;font-size:1.05rem;color:var(--ink)">कार्ड इमेज सेव करें</div>
+    <p style="margin:0;color:var(--soft);font-size:0.92rem">क्या आप इस शायरी को PNG इमेज के रूप में डाउनलोड करना चाहते हैं?</p>
+    <div style="display:flex;gap:10px;justify-content:flex-end">
+      <button type="button" id="cancelDownloadBtn" class="sh-tile" style="padding:9px 16px">रद्द करें</button>
+      <button type="button" id="confirmDownloadBtn" class="main" style="padding:9px 18px">डाउनलोड करें</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyC_fwe4hWPdf-UMZfULMFU52HsJWPQO47I",
-  authDomain: "newshayri-264d1.firebaseapp.com",
-  databaseURL: "https://newshayri-264d1-default-rtdb.firebaseio.com",
-  projectId: "newshayri-264d1",
-  storageBucket: "newshayri-264d1.firebasestorage.app",
-  messagingSenderId: "734073674337",
-  appId: "1:734073674337:web:bc4f5e2e0210e21ddf2820",
-  measurementId: "G-EQGLJGHX5T"
-};
-
-const _BASE=[
-{"c":"रोमांटिक","t":"तेरी आँखों में जो ठहरी है शाम,\nउसी में खो गया है मेरा नाम।"},
-{"c":"रोमांटिक","t":"न कोई वादा, न कोई क़सम,\nफिर भी तुझ तक आते हैं क़दम।"},
-{"c":"रोमांटिक","t":"तुझे सोचना भी इबादत सा है,\nहर ख़याल तेरा आदत सा है।"},
-{"c":"रोमांटिक","t":"चाँद ने कहा, मैं भी हूँ तेरी तरह,\nरात भर जागा हूँ किसी की वजह।"},
-{"c":"रोमांटिक","t":"तेरे नाम से सुबह होती है मेरी,\nतेरे ख़याल पर शाम ढलती है।"},
-{"c":"रोमांटिक","t":"दिल ने जब भी माँगी कोई दुआ,\nहर बार लबों पर तेरा नाम आया।"},
-{"c":"रोमांटिक","t":"तू पास हो तो वक़्त ठहर जाए,\nतू दूर हो तो पल सदियाँ लगें।"},
-{"c":"रोमांटिक","t":"तेरी मुस्कान पर ठहर गई मेरी नज़र,\nअब ये दिल किसी और मंज़र का नहीं।"},
-{"c":"दोस्ती","t":"सच्चा दोस्त वो, जो चुप रहकर भी सुन ले,\nऔर तेरी हँसी में अपनी ख़ुशी चुन ले।"},
-{"c":"दोस्ती","t":"रास्ते बदले, शहर भी बदल गए,\nयारों के नाम दिल में वैसे ही रह गए।"},
-{"c":"दोस्ती","t":"दोस्ती वो रिश्ता है बिना नाम का,\nजो हर नाम से बढ़कर निकलता है।"},
-{"c":"दोस्ती","t":"यारों की महफ़िल में ग़म भी हँसता है,\nचाय की प्याली में जन्नत बसती है।"},
-{"c":"दोस्ती","t":"हर राज़ मेरा तेरे पास महफ़ूज़ है,\nतू दोस्त नहीं, मेरा आईना है।"},
-{"c":"दोस्ती","t":"जब सब छोड़ गए, तब तू रुका रहा,\nदोस्त, तेरा एहसान मुझ पर रहा।"},
-{"c":"दोस्ती","t":"यारों की महफ़िल में वक़्त का पता नहीं चलता,\nघड़ी देखो तो सुबह हो चुकी होती है।"},
-{"c":"दोस्ती","t":"सच्चा दोस्त वो आईना है,\nजो चेहरा नहीं, दिल देखता है।"},
-{"c":"ज़िंदगी","t":"ठोकरें भी सिखा जाती हैं चलना,\nहर गिरना है सँभलने का बहाना।"},
-{"c":"ज़िंदगी","t":"वक़्त रेत है, फिसलता जाएगा,\nमुट्ठी नहीं, हथेली खोलकर जी।"},
-{"c":"ज़िंदगी","t":"थोड़ा सब्र रख, हर रात की सुबह है,\nअँधेरा भी आख़िर किसी वजह है।"},
-{"c":"ज़िंदगी","t":"मंज़िल की फ़िक्र छोड़, सफ़र का मज़ा ले,\nरास्ते ख़ुद ही सिखा देते हैं चलना।"},
-{"c":"ज़िंदगी","t":"हार भी एक सबक़ है, मान ले इसे,\nजीत की पहली सीढ़ी यही तो है।"},
-{"c":"ज़िंदगी","t":"ख़्वाब देखना मत छोड़ना कभी,\nनींद टूटे तो भी हौसला बना रहे।"},
-{"c":"ज़िंदगी","t":"ज़िंदगी हर मोड़ पर एक सबक़ देती है,\nबस सीखने वाला दिल चाहिए।"},
-{"c":"ज़िंदगी","t":"कम में भी जो ख़ुश है वही अमीर है,\nबाक़ी सब तो बस दौड़ में हैं।"},
-{"c":"उदासी","t":"ख़ामोशी भी बहुत कुछ कहती है,\nबस सुनने वाला कोई चाहिए।"},
-{"c":"उदासी","t":"आँखें मुस्कुराईं तो सबने मान लिया,\nदिल की उदासी को किसने जान लिया।"},
-{"c":"उदासी","t":"भीड़ बहुत थी इस शहर में,\nफिर भी तन्हा रहा मैं।"},
-{"c":"उदासी","t":"रात ने चुपके से मेरा हाल पूछा,\nमैंने तारों से कहा, कुछ नहीं।"},
-{"c":"उदासी","t":"हँसते हुए चेहरे के पीछे जो है,\nकभी किसी ने उसे देखा ही नहीं।"},
-{"c":"उदासी","t":"आँसुओं को तकिये ने सँभाल लिया,\nइंसानों से तो ये उम्मीद ही नहीं थी।"},
-{"c":"उदासी","t":"मुस्कुराना भी एक हुनर है दोस्त,\nजिसे हम दर्द छुपाने में इस्तेमाल करते हैं।"},
-{"c":"उदासी","t":"रात भर जागकर जो सोचा तुझे,\nसुबह तक आँखें भी रो पड़ीं।"},
-{"c":"बेवफ़ाई","t":"वादे थे हज़ार, निभाया एक भी नहीं,\nहम समझे थे तुझे, तू समझा ही नहीं।"},
-{"c":"बेवफ़ाई","t":"बदल गया तू मौसम की तरह,\nहम बैठे रहे पहली बारिश की तरह।"},
-{"c":"बेवफ़ाई","t":"तेरी बेवफ़ाई का शिकवा क्या करें,\nहमने ही माँगा था जो अपना न था।"},
-{"c":"बेवफ़ाई","t":"वो हँसकर मिला किसी और से जब,\nहमने भी कह दिया, ख़ुश रहना अब।"},
-{"c":"बेवफ़ाई","t":"दिल जला है तो रोशनी होगी,\nइसी आग से कोई शायरी होगी।"},
-{"c":"बेवफ़ाई","t":"हमें न छेड़ो, हम दिलजले हैं,\nराख में भी चिंगारी लिए चले हैं।"},
-{"c":"बेवफ़ाई","t":"तूने वादे तोड़े ऐसे जैसे काँच के खिलौने,\nऔर हमने समेटे टुकड़े उम्र भर के लिए।"},
-{"c":"बेवफ़ाई","t":"वफ़ा के बदले बेवफ़ाई मिली,\nफिर भी तुझसे नफ़रत न हो सकी।"},
-{"c":"शराबी","t":"जाम में डूबी है तेरी याद की शाम,\nहोश वाले क्या जानें इसका नाम।"},
-{"c":"शराबी","t":"मयख़ाने की दीवारें जानती हैं,\nकिसके ग़म में ये रातें कटती हैं।"},
-{"c":"शराबी","t":"नशा शराब का कहाँ, तेरी बातों का था,\nउतर गई सुबह तक, तू उतरा ही नहीं।"},
-{"c":"शराबी","t":"प्याले ख़ाली हुए, ग़म भरा रह गया,\nहोश आया तो फिर वही दर्द रह गया।"},
-{"c":"शराबी","t":"महफ़िल सजी है, पर मैं तन्हा हूँ,\nजाम हाथ में है, याद तेरी साथ है।"},
-{"c":"शराबी","t":"ग़म को डुबोने चला था प्याले में,\nवो तो तैरकर ऊपर आ गया।"},
-{"c":"शराबी","t":"जाम में डूबकर देखा तेरा चेहरा,\nनशा उतरा तो तू फिर भी नहीं गया।"},
-{"c":"शराबी","t":"मयख़ाने की चौखट पर बैठा हूँ,\nतेरी बेवफ़ाई का हिसाब लेकर।"},
-{"c":"Adult","t":"तेरी साँसों की गर्मी से पिघल जाती है रात,\nतेरे क़रीब आकर ठहर जाती है रात।"},
-{"c":"Adult","t":"तेरे लबों की छुअन में जन्नत मिली,\nबाक़ी सब दुनिया की बातें फ़ज़ूल लगीं।"},
-{"c":"Adult","t":"तेरी ज़ुल्फ़ों की ख़ुशबू में खो जाने दे,\nआज की रात बस तेरा हो जाने दे।"},
-{"c":"Adult","t":"चाँदनी रात में तेरा मेरे पास होना,\nहै इश्क़ का सबसे हसीन एहसास होना।"},
-{"c":"Adult","t":"तेरी बाँहों में जो सुकून मिला,\nवो किसी जन्नत में भी न मिला।"},
-{"c":"Adult","t":"नज़रों से नज़रें मिलीं तो दिल बेक़ाबू हुआ,\nतेरी हर अदा पर मैं बस जादू हुआ।"},
-{"c":"Adult","t":"तेरी अदाओं पर मैं मर मिटा,\nअब तू ही बता क्या इरादा है।"},
-{"c":"Adult","t":"नज़रें झुकाकर जब तू मुस्कुराई,\nदिल ने कहा आज कुछ तो गड़बड़ है।"},
-{"c":"बारिश","t":"बारिश की पहली बूँद ने तेरी याद दिलाई,\nमिट्टी की ख़ुशबू में तू फिर से आई।"},
-{"c":"बारिश","t":"छत पर भीगता रहा मैं तेरी याद में,\nबादलों ने भी साथ दिया मेरे ग़म में।"},
-{"c":"बारिश","t":"बारिश आई तो दिल ने तुझे ढूँढा,\nभीड़ में भी तेरा चेहरा ढूँढा।"},
-{"c":"बारिश","t":"भीगी हुई सड़कों पर तेरा इंतज़ार है,\nहर बूँद में तेरा ही दीदार है।"},
-{"c":"बारिश","t":"बादल बरसे, दिल भी भर आया,\nतेरे बिना ये मौसम न भाया।"},
-{"c":"बारिश","t":"चाय की प्याली और बारिश की शाम,\nइसमें बस कमी है तेरे नाम।"},
-{"c":"बारिश","t":"बादल बरसे तो यादें भी बरस पड़ीं,\nतू नहीं था पर तेरी बातें भीग गईं।"},
-{"c":"बारिश","t":"बारिश की पहली बूँद ने कहा,\nचल आज फिर किसी को याद करते हैं।"},
-{"c":"मोटिवेशनल","t":"गिरना कोई हार नहीं, रुक जाना हार है,\nउठ खड़ा हो, आगे पूरा संसार है।"},
-{"c":"मोटिवेशनल","t":"मंज़िलें उन्हीं को मिलती हैं जो चलते हैं,\nबैठने वाले तो बस सपने बुनते हैं।"},
-{"c":"मोटिवेशनल","t":"हौसले बुलंद हों तो राहें ख़ुद बन जाती हैं,\nअँधेरों में भी रोशनी की किरणें आती हैं।"},
-{"c":"मोटिवेशनल","t":"आज की मेहनत कल की पहचान बनेगी,\nये पसीना ही तेरी शान बनेगी।"},
-{"c":"मोटिवेशनल","t":"डर के आगे ही तो जीत का रास्ता है,\nजिसने क़दम बढ़ाया, उसी का वास्ता है।"},
-{"c":"मोटिवेशनल","t":"तू अकेला ही चल, क़ाफ़िला बन जाएगा,\nबस इरादा नेक रख, सब सँवर जाएगा।"},
-{"c":"मोटिवेशनल","t":"मंज़िल उन्हीं को मिलती है,\nजिनके सपनों में जान होती है।"},
-{"c":"मोटिवेशनल","t":"हार से सीख ले, जीत ख़ुद आएगी,\nगिरना मत छोड़, उठना मत भूलना।"}
+// Rich sample Hindi shayaris across all categories
+const _BASE = [
+  {"c": "रोमांटिक", "t": "तेरी आँखों में जो ठहरी है शाम,\nउसी में खो गया है मेरा नाम।"},
+  {"c": "रोमांटिक", "t": "न कोई वादा, न कोई क़सम,\nफिर भी तुझ तक आते हैं क़दम।"},
+  {"c": "रोमांटिक", "t": "तुझे सोचना भी इबादत सा है,\nहर ख़याल तेरा आदत सा है।"},
+  {"c": "रोमांटिक", "t": "तेरे नाम से सुबह होती है मेरी,\nतेरे ख़याल पर शाम ढलती है।"},
+  {"c": "दोस्ती", "t": "सच्चा दोस्त वो, जो चुप रहकर भी सुन ले,\nऔर तेरी हँसी में अपनी ख़ुशी चुन ले।"},
+  {"c": "दोस्ती", "t": "रास्ते बदले, शहर भी बदल गए,\nयारों के नाम दिल में वैसे ही रह गए।"},
+  {"c": "दोस्ती", "t": "यारों की महफ़िल में ग़म भी हँसता है,\nचाय की प्याली में जन्नत बसती है।"},
+  {"c": "दोस्ती", "t": "सच्चा दोस्त वो आईना है,\nजो चेहरा नहीं, दिल देखता है।"},
+  {"c": "ज़िंदगी", "t": "ठोकरें भी सिखा जाती हैं चलना,\nहर गिरना है सँभलने का बहाना।"},
+  {"c": "ज़िंदगी", "t": "वक़्त रेत है, फिसलता जाएगा,\nमुट्ठी नहीं, हथेली खोलकर जी।"},
+  {"c": "ज़िंदगी", "t": "थोड़ा सब्र रख, हर रात की सुबह है,\nअँधेरा भी आख़िर किसी वजह है।"},
+  {"c": "ज़िंदगी", "t": "ख़्वाब देखना मत छोड़ना कभी,\nनींद टूटे तो भी हौसला बना रहे।"},
+  {"c": "उदासी", "t": "ख़ामोशी भी बहुत कुछ कहती है,\nबस सुनने वाला कोई चाहिए।"},
+  {"c": "उदासी", "t": "आँखें मुस्कुराईं तो सबने मान लिया,\nदिल की उदासी को किसने जान लिया।"},
+  {"c": "उदासी", "t": "भीड़ बहुत थी इस शहर में,\nफिर भी तन्हा रहा मैं।"},
+  {"c": "उदासी", "t": "रात भर जागकर जो सोचा तुझे,\nसुबह तक आँखें भी रो पड़ीं।"},
+  {"c": "बेवफ़ाई", "t": "वादे थे हज़ार, निभाया एक भी नहीं,\nहम समझे थे तुझे, तू समझा ही नहीं।"},
+  {"c": "बेवफ़ाई", "t": "बदल गया तू मौसम की तरह,\nहम बैठे रहे पहली बारिश की तरह।"},
+  {"c": "बेवफ़ाई", "t": "तेरी बेवफ़ाई का शिकवा क्या करें,\nहमने ही माँगा था जो अपना न था।"},
+  {"c": "बेवफ़ाई", "t": "वो हँसकर मिला किसी और से जब,\nहमने भी कह दिया, ख़ुश रहना अब।"},
+  {"c": "शराबी", "t": "मयख़ाने की दीवारें जानती हैं,\nकिसके ग़म में ये रातें कटती हैं।"},
+  {"c": "शराबी", "t": "जाम में डूबी है तेरी याद की शाम,\nहोश वाले क्या जानें इसका नाम।"},
+  {"c": "शराबी", "t": "नशा शराब का कहाँ, तेरी बातों का था,\nउतर गई सुबह तक, तू उतरा ही नहीं।"},
+  {"c": "शराबी", "t": "महफ़िल सजी है, पर मैं तन्हा हूँ,\nजाम हाथ में है, याद तेरी साथ है।"},
+  {"c": "Adult", "t": "तेरी साँसों की गर्मी से पिघल जाती है रात,\nतेरे क़रीब आकर ठहर जाती है रात।"},
+  {"c": "Adult", "t": "तेरे लबों की छुअन में जन्नत मिली,\nबाक़ी सब दुनिया की बातें फ़ज़ूल लगीं।"},
+  {"c": "Adult", "t": "तेरी ज़ुल्फ़ों की ख़ुशबू में खो जाने दे,\nआज की रात बस तेरा हो जाने दे।"},
+  {"c": "Adult", "t": "चाँदनी रात में तेरा मेरे पास होना,\nहै इश्क़ का सबसे हसीन एहसास होना।"},
+  {"c": "बारिश", "t": "बारिश की पहली बूँद ने तेरी याद दिलाई,\nमिट्टी की ख़ुशबू में तू फिर से आई।"},
+  {"c": "बारिश", "t": "छत पर भीगता रहा मैं तेरी याद में,\nबादलों ने भी साथ दिया मेरे ग़म में।"},
+  {"c": "बारिश", "t": "चाय की प्याली और बारिश की शाम,\nइसमें बस कमी है तेरे नाम।"},
+  {"c": "बारिश", "t": "बादल बरसे तो यादें भी बरस पड़ीं,\nतू नहीं था पर तेरी बातें भीग गईं।"},
+  {"c": "मोटिवेशनल", "t": "गिरना कोई हार नहीं, रुक जाना हार है,\nउठ खड़ा हो, आगे पूरा संसार है।"},
+  {"c": "मोटिवेशनल", "t": "मंज़िलें उन्हीं को मिलती हैं जो चलते हैं,\nबैठने वाले तो बस सपने बुनते हैं।"},
+  {"c": "मोटिवेशनल", "t": "हौसले बुलंद हों तो राहें ख़ुद बन जाती हैं,\nअँधेरों में भी रोशनी की किरणें आती हैं।"},
+  {"c": "मोटिवेशनल", "t": "आज की मेहनत कल की पहचान बनेगी,\nये पसीना ही तेरी शान बनेगी।"}
 ];
 
-const DEFAULT_CATS=["रोमांटिक","दोस्ती","ज़िंदगी","उदासी","बेवफ़ाई","शराबी","Adult","बारिश","मोटिवेशनल"];
-const $=id=>document.getElementById(id);
-const mem={};
-function getS(k,d){try{const v=localStorage.getItem(k);if(v!=null)return JSON.parse(v)}catch(e){}return mem[k]!==undefined?mem[k]:d}
-function setS(k,v){mem[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+const DEFAULT_CATS = ["रोमांटिक", "दोस्ती", "ज़िंदगी", "उदासी", "बेवफ़ाई", "शराबी", "Adult", "बारिश", "मोटिवेशनल"];
+const $ = id => document.getElementById(id);
+const mem = {};
 
-function closeAllModalsOnStart(){
-  ["fullReader","shareAppModal","studio","accModal","notifModal"].forEach(id=>{
-    const el=$(id);if(el)el.classList.remove("open");
+function getS(k, d) {
+  try {
+    const v = localStorage.getItem(k);
+    if (v != null) return JSON.parse(v);
+  } catch (e) {}
+  return mem[k] !== undefined ? mem[k] : d;
+}
+
+function setS(k, v) {
+  mem[k] = v;
+  try {
+    localStorage.setItem(k, JSON.stringify(v));
+  } catch (e) {}
+}
+
+// Ensure all modals & drawers start closed cleanly on initial load or refresh
+function closeAllModalsOnStart() {
+  ["fullReader", "shareAppModal", "studio", "accModal", "notifModal", "confirmBoxModal"].forEach(id => {
+    const el = $(id);
+    if (el) el.classList.remove("open");
   });
-  if($("catDrawer"))$("catDrawer").classList.remove("open");
-  if($("topCatGridBtn"))$("topCatGridBtn").setAttribute("aria-expanded","false");
+  if ($("catDrawer")) $("catDrawer").classList.remove("open");
+  if ($("topCatGridBtn")) $("topCatGridBtn").setAttribute("aria-expanded", "false");
 }
 closeAllModalsOnStart();
-window.addEventListener("pageshow",closeAllModalsOnStart);
+window.addEventListener("pageshow", closeAllModalsOnStart);
 
-let customCats=getS("sh_custom_cats",[]);
-const getCats=()=>[...new Set([...DEFAULT_CATS,...customCats])];
+let customCats = getS("sh_custom_cats_v1", []);
+const getCats = () => [...new Set([...DEFAULT_CATS, ...customCats])];
 
-let myL=getS("sh_l",{});
-let myS=getS("sh_s",{});
-let myC=getS("sh_c",{});
-let myProfile=getS("sh_profile",{name:"User",bio:"",photo:""});
-let cachedPosts=getS("sh_cached_posts",[]);
-let savedSiteUrl=getS("sh_site_url","https://princeorviel.github.io/Nikk/");
-let OWN=getS("sh_owner","")==="1";
+let myL = getS("sh_l_v1", {});
+let myS = getS("sh_s_v1", {});
+let myC = getS("sh_c_v1", {});
+let myProfile = getS("sh_profile_v1", { name: "Prince", bio: "", photo: "" });
+let cachedPosts = getS("sh_posts_v1", []);
+let savedSiteUrl = getS("sh_site_url_v1", "https://princeorviel.github.io/Nikk/");
+let OWN = getS("sh_owner_v1", "") === "1";
 
-function buildBasePosts(){
-  const list=[];
-  getCats().forEach(cat=>{
-    const pool=_BASE.filter(x=>x.c===cat);
-    const src=pool.length?pool:[{c:cat,t:"नई श्रेणी की पहली शायरी ✨"}];
-    for(let idx=0;idx<200;idx++){
-      const item=src[idx%src.length];
-      list.push({
-        id:"b_"+cat+"_"+idx,
-        c:cat,
-        t:item.t,
-        n:"शायरी",
-        h:"#"+cat,
-        ts:0,
-        isBase:true
-      });
+function buildBasePosts() {
+  return _BASE.map((item, idx) => ({
+    id: "b_" + idx,
+    c: item.c,
+    t: item.t,
+    n: "शायरी",
+    h: "#" + item.c,
+    ts: 0,
+    isBase: true
+  }));
+}
+
+function toast(m) {
+  const el = $("toast");
+  if (!el) return;
+  el.textContent = m;
+  el.classList.add("show");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => el.classList.remove("show"), 1900);
+}
+
+function mk(tag, cls, txt) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (txt != null) e.textContent = txt;
+  return e;
+}
+
+function compressImage(dataUrl, maxSide, quality, cb) {
+  const im = new Image();
+  im.onload = () => {
+    try {
+      const cv = document.createElement("canvas");
+      const sc = Math.min(1, (maxSide || 720) / Math.max(im.width, im.height));
+      cv.width = Math.max(1, Math.round(im.width * sc));
+      cv.height = Math.max(1, Math.round(im.height * sc));
+      cv.getContext("2d").drawImage(im, 0, 0, cv.width, cv.height);
+      cb(cv.toDataURL("image/jpeg", quality || 0.72));
+    } catch (e) {
+      cb(dataUrl);
     }
-  });
-  return list;
-}
-
-let db=null,isLive=false;
-const liveLikes={},liveComms={};
-try{
-  if(window.firebase&&firebaseConfig.apiKey&&firebaseConfig.projectId){
-    firebase.initializeApp(firebaseConfig);
-    db=firebase.firestore();
-    isLive=true;
-  }
-}catch(e){isLive=false}
-
-function toast(m){
-  const el=$("toast");el.textContent=m;el.classList.add("show");
-  clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove("show"),1900);
-}
-function mk(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
-
-function compressImage(dataUrl,maxSide,quality,cb){
-  const im=new Image();
-  im.onload=()=>{
-    const cv=document.createElement("canvas");
-    const sc=Math.min(1,(maxSide||720)/Math.max(im.width,im.height));
-    cv.width=Math.max(1,im.width*sc);
-    cv.height=Math.max(1,im.height*sc);
-    cv.getContext("2d").drawImage(im,0,0,cv.width,cv.height);
-    cb(cv.toDataURL("image/jpeg",quality||0.72));
   };
-  im.src=dataUrl;
+  im.onerror = () => cb(dataUrl);
+  im.src = dataUrl;
 }
 
-const L=(h,f)=>'#'+[1,3,5].map(i=>Math.round(parseInt(h.substr(i,2),16)*(1-f)+255*f).toString(16).padStart(2,'0')).join('');
-const SV=(a,b,x)=>`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' preserveAspectRatio='xMidYMid slice'><defs><linearGradient id='g' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='${L(a,.38)}'/><stop offset='1' stop-color='${L(b,.26)}'/></linearGradient></defs><rect width='400' height='300' fill='url(#g)'/>${x}</svg>`;
-const rnd=(n,f)=>{let x=7,o='';for(let i=0;i<n;i++){x=(x*9301+49297)%233280;const a=x/233280;x=(x*9301+49297)%233280;o+=f(a,x/233280,i)}return o};
-const st=n=>rnd(n,(a,b)=>`<circle cx='${a*400|0}' cy='${b*170|0}' r='${(.5+a*1.3).toFixed(1)}' fill='#fff' opacity='${(.4+b*.5).toFixed(2)}'/>`);
-const bk=(n,cs)=>rnd(n,(a,b,i)=>`<circle cx='${a*400|0}' cy='${b*300|0}' r='${12+a*b*50|0}' fill='${cs[i%cs.length]}' opacity='${(.09+b*.14).toFixed(2)}'/>`);
-const rain=n=>rnd(n,(a,b)=>`<line x1='${a*420|0}' y1='${b*300|0}' x2='${a*420-14|0}' y2='${b*300+34|0}' stroke='#d6e8f5' stroke-width='1.2' opacity='${(.25+b*.4).toFixed(2)}'/>`);
-const HT=(x,y,s,c,o)=>`<path transform='translate(${x} ${y}) scale(${s})' d='M0-6C-10-18-28-4 0 18 28-4 10-18 0-6Z' fill='${c}' opacity='${o}'/>`;
-const tr=(n,y0,c)=>rnd(n,(a,b)=>{const x=a*400|0,y=y0+(b*50|0),h=18+(b*26|0);return `<polygon points='${x},${y-h} ${x-(h*.35|0)},${y} ${x+(h*.35|0)},${y}' fill='${c}'/>`});
-const fl=n=>rnd(n,(a,b,i)=>{const x=a*400|0,y=190+(b*100|0),r=3+(b*6|0),c=['#ff5d8f','#ffd93d','#ffffff','#ff9ad5','#c77dff'][i%5];return `<line x1='${x}' y1='${y}' x2='${x}' y2='${y+14}' stroke='#2f6b2a' stroke-width='1.5'/><circle cx='${x}' cy='${y}' r='${r}' fill='${c}'/><circle cx='${x}' cy='${y}' r='${(r/3).toFixed(1)}' fill='#7a3e00'/>`});
+// Card wallpaper generators (inline SVG data URLs)
+const makeCardSvg = (c1, c2, accentRing) =>
+  `data:image/svg+xml,${encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="wg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="${c1}"/>
+          <stop offset="100%" stop-color="${c2}"/>
+        </linearGradient>
+      </defs>
+      <rect width="600" height="420" fill="url(#wg)"/>
+      <circle cx="480" cy="95" r="95" fill="${accentRing}" opacity="0.16"/>
+      <circle cx="115" cy="340" r="120" fill="${accentRing}" opacity="0.14"/>
+    </svg>`
+  )}`;
 
-const WALLS=[
-  {dark:true,svg:SV('#3b1838','#241226',st(36)+`<circle cx='300' cy='88' r='44' fill='#ffe6f1'/>`+HT(90,200,3.2,'#ff7aa8',.55)+HT(330,215,2.2,'#ff9ec1',.5))},
-  {dark:true,svg:SV('#ff9bb5','#ffd29a',`<circle cx='260' cy='140' r='46' fill='#fff1c9' opacity='.9'/><path d='M0 170C100 140 200 175 400 150L400 300L0 300Z' fill='#5fa34a'/>`+fl(36))},
-  {dark:true,svg:SV('#16324f','#f5b971',`<circle cx='300' cy='120' r='38' fill='#ffe3a8' opacity='.9'/>`+tr(14,215,'#12263a')+`<path d='M0 300C120 255 150 240 215 252C290 266 330 262 400 238L400 300Z' fill='#0f2236'/>`)},
-  {dark:true,svg:SV('#18222d','#5d7a8d',`<ellipse cx='110' cy='40' rx='130' ry='34' fill='#2b3946'/><ellipse cx='310' cy='30' rx='140' ry='38' fill='#334352'/>`+rain(60))},
-  {dark:true,svg:SV('#1a0509','#5c0b1e',bk(8,['#ff4d5e'])+HT(200,150,4.5,'#c1121f',.9))},
-  {dark:true,svg:SV('#121b2d','#f0a93e',`<circle cx='215' cy='120' r='70' fill='#ffd36e' opacity='.85'/><polygon points='50,300 215,92 380,300' fill='#0d1422'/>`)},
-  {dark:false,svg:SV('#e5e3e8','#d4cfd9',`<path d='M310 300C310 230 315 190 315 160' stroke='#4e7a48' stroke-width='5' fill='none'/><circle cx='315' cy='140' r='44' fill='#f4b8c8' opacity='.85'/><circle cx='315' cy='140' r='26' fill='#e893aa' opacity='.8'/>`)}
+const WALLS = [
+  { dark: true, bg: makeCardSvg("#3b233d", "#1e1229", "#ff4d8d"), label: "सांझ" },
+  { dark: true, bg: makeCardSvg("#471d2f", "#241022", "#f59e0b"), label: "दर्द" },
+  { dark: true, bg: makeCardSvg("#291c42", "#171029", "#9c6ade"), label: "रात" },
+  { dark: false, bg: makeCardSvg("#fdebf4", "#f3e5fa", "#e91e63"), label: "गुलाबी" },
+  { dark: true, bg: makeCardSvg("#1e324a", "#131c2e", "#ffd36e"), label: "सफ़र" },
+  { dark: true, bg: makeCardSvg("#3d1b24", "#1c0d14", "#ff6aa2"), label: "इश्क़" },
+  { dark: false, bg: makeCardSvg("#fff0f6", "#f7e8ff", "#9c6ade"), label: "सुकून" },
+  { dark: true, bg: makeCardSvg("#2a1836", "#150e21", "#ff85bc"), label: "यादें" }
 ];
-const TEXT_COLORS=["#ff69b4","#ff2e79","#ff9ecd","#ff85bc","#e91e63"];
 
-function wallUrl(idx,customImg){
-  if(customImg)return `linear-gradient(rgba(0,0,0,.22),rgba(0,0,0,.42)),url("${customImg}")`;
-  const w=WALLS[idx%WALLS.length]||WALLS[0];
-  const ov=w.dark?'linear-gradient(rgba(0,0,0,.12),rgba(0,0,0,.38))':'linear-gradient(rgba(0,0,0,.18),rgba(0,0,0,.34))';
-  return `${ov},url("data:image/svg+xml,${encodeURIComponent(w.svg)}")`;
+const TEXT_COLORS = ["#ffffff", "#ffe3ee", "#ffd6e7", "#2d1a38", "#ffe082"];
+
+function wallUrl(idx, customImg) {
+  if (customImg) return `linear-gradient(rgba(0,0,0,0.28),rgba(0,0,0,0.52)),url("${customImg}")`;
+  const w = WALLS[Math.abs(idx || 0) % WALLS.length] || WALLS[0];
+  const ov = w.dark
+    ? "linear-gradient(rgba(0,0,0,0.16),rgba(0,0,0,0.42))"
+    : "linear-gradient(rgba(255,255,255,0.22),rgba(255,255,255,0.34))";
+  return `${ov},url("${w.bg}")`;
 }
 
-function allPosts(){
-  const map=new Map();
-  cachedPosts.forEach(p=>{if(p&&p.t)map.set(p.id,p)});
-  buildBasePosts().forEach(p=>{if(!map.has(p.id))map.set(p.id,p)});
+function allPosts() {
+  const map = new Map();
+  cachedPosts.forEach(p => {
+    if (p && p.t) map.set(p.id, p);
+  });
+  buildBasePosts().forEach(p => {
+    if (!map.has(p.id)) map.set(p.id, p);
+  });
   return Array.from(map.values());
 }
 
-function refreshCategorySelects(selectedVal){
-  const cats=getCats();
-  ["cCat","sCatFinal"].forEach(id=>{
-    const sel=$(id);if(!sel)return;
-    const prev=selectedVal||sel.value;
-    sel.innerHTML="";
-    cats.forEach(c=>sel.add(new Option(c,c)));
-    if(prev&&cats.includes(prev))sel.value=prev;
+function refreshCategorySelects(selectedVal) {
+  const cats = getCats();
+  ["cCat", "sCatFinal"].forEach(id => {
+    const sel = $(id);
+    if (!sel) return;
+    const prev = selectedVal || sel.value;
+    sel.innerHTML = "";
+    cats.forEach(c => sel.add(new Option(c, c)));
+    if (prev && cats.includes(prev)) sel.value = prev;
   });
 }
 
-let curCat="सभी",searchQ="",viewMode="home",lastHero=-1;
-let readerList=[],readerIdx=0;
+let curCat = "सभी", searchQ = "", viewMode = "home", lastHero = -1;
+let readerList = [], readerIdx = 0;
+let pendingDownloadPost = null;
 
-function saveShayariImage(post,idx){
-  const wIdx=post.b!=null?post.b:((idx||0)%WALLS.length);
-  const wObj=WALLS[wIdx]||WALLS[0];
-  const col=post.col||"#ff69b4";
-  const cv=document.createElement("canvas");
-  cv.width=1080;cv.height=1080;
-  const ctx=cv.getContext("2d");
-  const im=new Image();
-  im.onload=()=>{
-    ctx.drawImage(im,0,0,1080,1080);
-    ctx.fillStyle="rgba(0,0,0,.32)";
-    ctx.fillRect(0,0,1080,1080);
-    ctx.strokeStyle="rgba(255,105,180,.45)";
-    ctx.lineWidth=4;
-    ctx.strokeRect(48,48,984,984);
+function saveShayariImage(post, idx) {
+  try {
+    const wIdx = post.b != null ? post.b : ((idx || 0) % WALLS.length);
+    const wObj = WALLS[Math.abs(wIdx) % WALLS.length] || WALLS[0];
+    const col = post.col || (wObj.dark ? "#ffffff" : "#2d1a38");
+    const cv = document.createElement("canvas");
+    cv.width = 1080;
+    cv.height = 1080;
+    const ctx = cv.getContext("2d");
 
-    ctx.fillStyle="#ff9ecd";
-    ctx.font="600 34px 'Hind',sans-serif";
-    ctx.textAlign="center";
-    ctx.fillText("✦ "+(post.c||"शायरी")+" ✦",540,180);
+    const drawCard = bgImg => {
+      if (bgImg) {
+        ctx.drawImage(bgImg, 0, 0, 1080, 1080);
+      } else {
+        const grad = ctx.createLinearGradient(0, 0, 1080, 1080);
+        grad.addColorStop(0, "#3b233d");
+        grad.addColorStop(1, "#1e1229");
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 1080, 1080);
+      }
+      ctx.fillStyle = wObj.dark || post.img ? "rgba(0,0,0,0.34)" : "rgba(255,246,251,0.55)";
+      ctx.fillRect(0, 0, 1080, 1080);
+      ctx.strokeStyle = wObj.dark || post.img ? "rgba(255,255,255,0.4)" : "rgba(45,26,56,0.22)";
+      ctx.lineWidth = 4;
+      ctx.strokeRect(48, 48, 984, 984);
 
-    ctx.fillStyle=col;
-    ctx.font="600 50px 'Tiro Devanagari Hindi',serif";
-    const lines=(post.t||"").split("\n");
-    const lh=78;
-    const startY=540-((lines.length-1)*lh)/2;
-    lines.forEach((ln,i)=>ctx.fillText(ln,540,startY+i*lh));
+      ctx.fillStyle = wObj.dark || post.img ? "#ffe3ee" : "#e91e63";
+      ctx.font = "600 34px 'Hind', sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("✦ " + (post.c || "शायरी") + " ✦", 540, 180);
 
-    ctx.fillStyle="#ff85bc";
-    ctx.font="500 32px 'Hind',sans-serif";
-    ctx.fillText("— _ "+(post.n||"शायरी")+" —",540,920);
+      ctx.fillStyle = col;
+      ctx.font = "600 50px 'Tiro Devanagari Hindi', serif";
+      const lines = (post.t || "").split("\n");
+      const lh = 78;
+      const startY = 540 - ((lines.length - 1) * lh) / 2;
+      lines.forEach((ln, i) => ctx.fillText(ln, 540, startY + i * lh));
 
-    const a=document.createElement("a");
-    a.download="shayari-"+Date.now()+".png";
-    a.href=cv.toDataURL("image/png");
-    a.click();
-    toast("इमेज सेव/डाउनलोड हो गई 🖼️");
-  };
-  im.src=post.img||("data:image/svg+xml;charset=utf-8,"+encodeURIComponent(wObj.svg));
+      ctx.fillStyle = wObj.dark || post.img ? "#ffd6e7" : "#7f688c";
+      ctx.font = "500 32px 'Hind', sans-serif";
+      ctx.fillText("— _ " + (post.n || "शायरी") + " —", 540, 920);
+
+      const a = document.createElement("a");
+      a.download = "shayari-" + Date.now() + ".png";
+      a.href = cv.toDataURL("image/png");
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      toast("इमेज डाउनलोड हो गई 🖼️");
+    };
+
+    const im = new Image();
+    im.onload = () => drawCard(im);
+    im.onerror = () => drawCard(null);
+    im.src = post.img || wObj.bg;
+  } catch (e) {
+    toast("इमेज डाउनलोड नहीं हो सकी");
+  }
 }
 
-function openReader(postsArr,startIndex){
-  if(!postsArr||!postsArr.length)return;
-  readerList=postsArr;
-  readerIdx=Math.max(0,Math.min(startIndex||0,postsArr.length-1));
+function openReader(postsArr, startIndex) {
+  if (!postsArr || !postsArr.length) return;
+  readerList = postsArr;
+  readerIdx = Math.max(0, Math.min(startIndex || 0, postsArr.length - 1));
   renderReaderItem();
   $("fullReader").classList.add("open");
 }
 
-function renderReaderItem(){
-  const p=readerList[readerIdx];
-  if(!p)return;
-  const wIdx=p.b!=null?p.b:(readerIdx%WALLS.length);
-  const wObj=WALLS[wIdx]||WALLS[0];
-  const col=p.col||"#ff69b4";
+function renderReaderItem() {
+  const p = readerList[readerIdx];
+  if (!p) return;
+  const wIdx = p.b != null ? p.b : (readerIdx % WALLS.length);
+  const wObj = WALLS[Math.abs(wIdx) % WALLS.length] || WALLS[0];
+  const col = p.col || (wObj.dark ? "#ffffff" : "#2d1a38");
 
-  const card=$("frCard");
-  card.style.backgroundImage=wallUrl(wIdx,p.img);
-  card.style.color=col;
+  const card = $("frCard");
+  card.style.backgroundImage = wallUrl(wIdx, p.img);
+  card.style.color = col;
 
-  $("frCat").textContent="✦ "+(p.c||"शायरी")+" ✦";
-  const ft=$("frText");
-  ft.textContent=p.t||"";
-  ft.style.fontFamily=(p.f||"Tiro Devanagari Hindi")+",serif";
-  ft.style.color=col;
-  $("frSig").textContent="— _ "+(p.n||"शायरी")+" —";
-  $("frLike").textContent=myL[p.id]?"❤️":"♡";
-  $("frScroll").scrollTop=0;
+  $("frCat").textContent = "✦ " + (p.c || "शायरी") + " ✦";
+  const ft = $("frText");
+  ft.textContent = p.t || "";
+  ft.style.fontFamily = (p.f || "Tiro Devanagari Hindi") + ", serif";
+  ft.style.color = col;
+  ft.style.textShadow = wObj.dark || p.img ? "0 2px 10px rgba(0,0,0,0.78)" : "none";
+  $("frSig").textContent = "— _ " + (p.n || "शायरी") + " —";
+  $("frLike").textContent = myL[p.id] ? "❤️" : "♡";
+  $("frScroll").scrollTop = 0;
 }
 
-(()=>{
-  $("frBack").onclick=()=>$("fullReader").classList.remove("open");
-  $("frLike").onclick=()=>{
-    const p=readerList[readerIdx];
-    if(!p)return;
-    if(myL[p.id])delete myL[p.id];else myL[p.id]=1;
-    setS("sh_l",myL);
-    $("frLike").textContent=myL[p.id]?"❤️":"♡";
+(() => {
+  $("frBack").onclick = () => $("fullReader").classList.remove("open");
+
+  $("frLike").onclick = () => {
+    const p = readerList[readerIdx];
+    if (!p) return;
+    if (myL[p.id]) delete myL[p.id];
+    else myL[p.id] = 1;
+    setS("sh_l_v1", myL);
+    $("frLike").textContent = myL[p.id] ? "❤️" : "♡";
     renderFeed();
-    toast(myL[p.id]?"पसंद किया गया ❤️":"पसंद हटाया गया");
+    toast(myL[p.id] ? "पसंद किया गया ❤️" : "पसंद हटाया गया");
   };
 
-  let lpTimer=null,sx=0,sy=0;
-  const sc=$("frScroll");
-  sc.addEventListener("touchstart",e=>{
-    if(!e.touches||!e.touches.length)return;
-    sx=e.touches[0].clientX;sy=e.touches[0].clientY;
-    clearTimeout(lpTimer);
-    lpTimer=setTimeout(()=>{
-      const p=readerList[readerIdx];
-      if(p&&confirm("इस शायरी इमेज को Download / Save करना चाहते हैं?")){
-        saveShayariImage(p,readerIdx);
-      }
-    },650);
-  },{passive:true});
+  $("cancelDownloadBtn").onclick = () => {
+    pendingDownloadPost = null;
+    $("confirmBoxModal").classList.remove("open");
+  };
 
-  sc.addEventListener("touchmove",e=>{
-    if(!e.touches||!e.touches.length)return;
-    if(Math.abs(e.touches[0].clientX-sx)>12||Math.abs(e.touches[0].clientY-sy)>12){
+  $("confirmDownloadBtn").onclick = () => {
+    if (pendingDownloadPost) {
+      saveShayariImage(pendingDownloadPost.post, pendingDownloadPost.idx);
+    }
+    pendingDownloadPost = null;
+    $("confirmBoxModal").classList.remove("open");
+  };
+
+  let lpTimer = null, sx = 0, sy = 0;
+  const sc = $("frScroll");
+  sc.addEventListener("touchstart", e => {
+    if (!e.touches || !e.touches.length) return;
+    sx = e.touches[0].clientX;
+    sy = e.touches[0].clientY;
+    clearTimeout(lpTimer);
+    lpTimer = setTimeout(() => {
+      const p = readerList[readerIdx];
+      if (p) {
+        pendingDownloadPost = { post: p, idx: readerIdx };
+        $("confirmBoxModal").classList.add("open");
+      }
+    }, 650);
+  }, { passive: true });
+
+  sc.addEventListener("touchmove", e => {
+    if (!e.touches || !e.touches.length) return;
+    if (Math.abs(e.touches[0].clientX - sx) > 12 || Math.abs(e.touches[0].clientY - sy) > 12) {
       clearTimeout(lpTimer);
     }
-  },{passive:true});
+  }, { passive: true });
 
-  sc.addEventListener("touchend",e=>{
+  sc.addEventListener("touchend", e => {
     clearTimeout(lpTimer);
-    if(!e.changedTouches||!e.changedTouches.length||!readerList.length)return;
-    const dx=e.changedTouches[0].clientX-sx;
-    const dy=e.changedTouches[0].clientY-sy;
-    if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.2){
-      if(dx<0)readerIdx=(readerIdx+1)%readerList.length;
-      else readerIdx=(readerIdx-1+readerList.length)%readerList.length;
+    if (!e.changedTouches || !e.changedTouches.length || !readerList.length) return;
+    const dx = e.changedTouches[0].clientX - sx;
+    const dy = e.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      if (dx < 0) readerIdx = (readerIdx + 1) % readerList.length;
+      else readerIdx = (readerIdx - 1 + readerList.length) % readerList.length;
       renderReaderItem();
     }
-  },{passive:true});
+  }, { passive: true });
 })();
 
-const EMO=['✨','💘','🤝','🌱','😔','💔','🍷','😉','🌧️','🚀','🎭','📝'];
+const EMO = ["✨", "💘", "🤝", "🌱", "😔", "💔", "🍷", "😉", "🌧️", "🚀", "🎭", "📝"];
 
-function renderCatGrid(){
-  const grid=$("catGrid");
-  grid.innerHTML="";
-  const posts=allPosts();
-  const listCats=["सभी",...getCats()];
-  listCats.forEach((c,ix)=>{
-    const cnt=c==="सभी"?posts.length:posts.filter(p=>p.c===c).length;
-    const active=(viewMode==="home"&&curCat===c);
-    const tile=mk("button","cat-tile"+(active?" active":""),EMO[ix%EMO.length]+" "+c+(OWN?" ("+cnt+")":""));
-    tile.type="button";
-    tile.onclick=()=>{
-      viewMode="home";
-      curCat=c;
+function renderCatGrid() {
+  const grid = $("catGrid");
+  grid.innerHTML = "";
+  const posts = allPosts();
+  const listCats = ["सभी", ...getCats()];
+  listCats.forEach((c, ix) => {
+    const cnt = c === "सभी" ? posts.length : posts.filter(p => p.c === c).length;
+    const active = viewMode === "home" && curCat === c;
+    const tile = mk("button", "cat-tile" + (active ? " active" : ""), EMO[ix % EMO.length] + " " + c + (OWN ? " (" + cnt + ")" : ""));
+    tile.type = "button";
+    tile.onclick = () => {
+      viewMode = "home";
+      curCat = c;
       $("catDrawer").classList.remove("open");
-      $("topCatGridBtn").setAttribute("aria-expanded","false");
-      updateNav();renderChips();renderFeed();
+      $("topCatGridBtn").setAttribute("aria-expanded", "false");
+      updateNav();
+      renderChips();
+      renderFeed();
     };
     grid.appendChild(tile);
   });
 }
 
-function renderChips(){
-  const box=$("chips");
-  box.innerHTML="";
-  const posts=allPosts();
-  const listCats=["सभी",...getCats()];
-  listCats.forEach((c,ix)=>{
-    const cnt=c==="सभी"?posts.length:posts.filter(p=>p.c===c).length;
-    const b=mk("button","chip",EMO[ix%EMO.length]+" "+c+(OWN?" "+cnt:""));
-    b.type="button";
-    b.setAttribute("aria-pressed",String(viewMode==="home"&&curCat===c));
-    b.onclick=()=>{viewMode="home";curCat=c;updateNav();renderChips();renderFeed()};
+function renderChips() {
+  const box = $("chips");
+  box.innerHTML = "";
+  const posts = allPosts();
+  const listCats = ["सभी", ...getCats()];
+  listCats.forEach((c, ix) => {
+    const cnt = c === "सभी" ? posts.length : posts.filter(p => p.c === c).length;
+    const b = mk("button", "chip", EMO[ix % EMO.length] + " " + c + (OWN ? " " + cnt : ""));
+    b.type = "button";
+    b.setAttribute("aria-pressed", String(viewMode === "home" && curCat === c));
+    b.onclick = () => {
+      viewMode = "home";
+      curCat = c;
+      updateNav();
+      renderChips();
+      renderFeed();
+    };
     box.appendChild(b);
   });
   renderCatGrid();
 }
 
-function pickHero(){
-  const posts=allPosts();
+function pickHero() {
+  const posts = allPosts();
+  if (!posts.length) return;
   let i;
-  do{i=Math.floor(Math.random()*posts.length)}while(i===lastHero&&posts.length>1);
-  lastHero=i;
-  const p=posts[i];
-  $("heroText").textContent=p.t;
-  $("heroMood").textContent=p.c;
-  $("heroBox").style.backgroundImage=wallUrl(i%WALLS.length,p.img);
-  $("heroText").onclick=()=>openReader(posts,i);
-  $("heroCollab").onclick=()=>openStudio(p.t+"\n",p.c,p.n);
+  do {
+    i = Math.floor(Math.random() * posts.length);
+  } while (i === lastHero && posts.length > 1);
+  lastHero = i;
+  const p = posts[i];
+  $("heroText").textContent = p.t;
+  $("heroMood").textContent = p.c;
+  $("heroText").onclick = () => openReader(posts, i);
+  $("heroCollab").onclick = () => openStudio(p.t + "\n", p.c, p.n);
 }
 
-function timeAgo(ts){
-  if(!ts)return "संग्रह";
-  const s=Math.floor((Date.now()-ts)/1000);
-  if(s<60)return "अभी";
-  if(s<3600)return Math.floor(s/60)+" मिनट पहले";
-  if(s<86400)return Math.floor(s/3600)+" घंटे पहले";
-  return Math.floor(s/86400)+" दिन पहले";
+function timeAgo(ts) {
+  if (!ts) return "संग्रह";
+  const s = Math.floor((Date.now() - ts) / 1000);
+  if (s < 60) return "अभी";
+  if (s < 3600) return Math.floor(s / 60) + " मिनट पहले";
+  if (s < 86400) return Math.floor(s / 3600) + " घंटे पहले";
+  return Math.floor(s / 86400) + " दिन पहले";
 }
 
-function canEditOrDelete(p){
-  if(p.isBase)return false;
-  const me=(myProfile.name||"").trim().toLowerCase();
-  const author=(p.n||"").trim().toLowerCase();
-  return OWN||(!!me&&me===author);
+function canEditOrDelete(p) {
+  if (p.isBase) return false;
+  const me = (myProfile.name || "").trim().toLowerCase();
+  const author = (p.n || "").trim().toLowerCase();
+  return OWN || (!!me && me === author);
 }
 
-async function deletePost(postId){
-  cachedPosts=cachedPosts.filter(x=>x.id!==postId);
-  setS("sh_cached_posts",cachedPosts);
-  renderChips();renderFeed();
+function deletePost(postId) {
+  cachedPosts = cachedPosts.filter(x => x.id !== postId);
+  setS("sh_posts_v1", cachedPosts);
+  renderChips();
+  renderFeed();
   toast("पोस्ट हटा दी गई है");
-  if(isLive&&db){
-    try{await db.collection("shayari_posts").doc(postId).delete()}catch(e){}
-  }
 }
 
-function updatePostCard(el){
-  const id=el.dataset.pid;
-  const lk=el.querySelector('[data-k="like"]');
-  const cm=el.querySelector('[data-k="cm"]');
-  const sv=el.querySelector('[data-k="save"]');
-  const liked=!!myL[id];
-  const saved=!!myS[id];
-  const count=(liveLikes[id]||0)+(liked&&!isLive?1:0);
-  lk.textContent=(liked?"❤️":"🤍")+(count?" "+count:"");
-  lk.setAttribute("aria-pressed",String(liked));
+function updatePostCard(el) {
+  const id = el.dataset.pid;
+  const lk = el.querySelector('[data-k="like"]');
+  const cm = el.querySelector('[data-k="cm"]');
+  const liked = !!myL[id];
+  const cArr = myC[id] || [];
 
-  const cArr=isLive?(liveComms[id]||[]):(myC[id]||[]);
-  cm.textContent="💬"+(cArr.length?" "+cArr.length:"");
-  sv.textContent=saved?"🔖":"📑";
-  sv.setAttribute("aria-pressed",String(saved));
+  if (lk) {
+    lk.textContent = liked ? "❤️ पसंद" : "🤍 पसंद";
+    lk.setAttribute("aria-pressed", String(liked));
+  }
+  if (cm) {
+    cm.textContent = "💬" + (cArr.length ? " " + cArr.length : "");
+  }
 
-  const cbox=el.querySelector(".cbox");
-  if(cbox){
-    const cl=cbox.querySelector(".clist");
-    cl.innerHTML="";
-    if(!cArr.length){cl.append(mk("div","cm","अभी कोई कमेंट नहीं है। पहला कमेंट आप करें!"));return}
-    cArr.forEach(c=>{
-      const r=mk("div","cm");
-      r.innerHTML=`<b>${c.who||"पाठक"}</b><span>${c.t}</span>`;
+  const cbox = el.querySelector(".cbox");
+  if (cbox) {
+    const cl = cbox.querySelector(".clist");
+    cl.innerHTML = "";
+    if (!cArr.length) {
+      cl.append(mk("div", "cm", "अभी कोई कमेंट नहीं है। पहला कमेंट आप करें!"));
+      return;
+    }
+    cArr.forEach(c => {
+      const r = mk("div", "cm");
+      r.innerHTML = `<b>${c.who || "पाठक"}</b><span>${c.t}</span>`;
       cl.appendChild(r);
     });
   }
 }
 
-async function toggleLike(id,el){
-  const was=!!myL[id];
-  if(was)delete myL[id];else myL[id]=1;
-  setS("sh_l",myL);
-  if(isLive&&db){
-    const ref=db.collection("shayari_interactions").doc(id);
-    try{
-      await db.runTransaction(async tx=>{
-        const snap=await tx.get(ref);
-        const cur=(snap.exists&&snap.data().likes)?snap.data().likes:0;
-        tx.set(ref,{likes:Math.max(0,cur+(was?-1:1))},{merge:true});
-      });
-    }catch(e){}
-  }else updatePostCard(el);
+function toggleLike(id, el) {
+  if (myL[id]) delete myL[id];
+  else myL[id] = 1;
+  setS("sh_l_v1", myL);
+  updatePostCard(el);
 }
 
-async function addComment(id,txt,el){
-  const who=myProfile.name||"पाठक";
-  if(isLive&&db){
-    try{await db.collection("shayari_comments").add({pid:id,who,t:txt,ts:Date.now()})}catch(e){toast("कमेंट नहीं हो पाया")}
-  }else{
-    (myC[id]=myC[id]||[]).push({who,t:txt,ts:Date.now()});
-    setS("sh_c",myC);updatePostCard(el);
-  }
+function addComment(id, txt, el) {
+  const who = myProfile.name || "पाठक";
+  (myC[id] = myC[id] || []).push({ who, t: txt, ts: Date.now() });
+  setS("sh_c_v1", myC);
+  updatePostCard(el);
+  toast("कमेंट जुड़ गया 💬");
 }
 
-function getFilteredPosts(){
-  let posts=allPosts();
-  if(viewMode==="saved"){
-    posts=posts.filter(p=>!!myS[p.id]||!!myL[p.id]);
-  }else if(viewMode==="profile"){
-    const me=(myProfile.name||"").toLowerCase();
-    posts=cachedPosts.filter(p=>!me||(p.n||"").toLowerCase()===me);
-  }else if(curCat!=="सभी"){
-    posts=posts.filter(p=>p.c===curCat);
+function getFilteredPosts() {
+  let posts = allPosts();
+  if (viewMode === "saved") {
+    posts = posts.filter(p => !!myL[p.id] || !!myS[p.id]);
+  } else if (viewMode === "profile") {
+    const me = (myProfile.name || "").toLowerCase();
+    posts = cachedPosts.filter(p => !me || (p.n || "").toLowerCase() === me);
+  } else if (curCat !== "सभी") {
+    posts = posts.filter(p => p.c === curCat);
   }
-  if(searchQ.trim()){
-    const q=searchQ.toLowerCase().replace(/^#+/,"").trim();
-    posts=posts.filter(p=>((p.t||"")+" "+(p.c||"")+" "+(p.n||"")+" "+(p.h||"")).toLowerCase().includes(q));
+  if (searchQ.trim()) {
+    const q = searchQ.toLowerCase().replace(/^#+/, "").trim();
+    posts = posts.filter(p => ((p.t || "") + " " + (p.c || "") + " " + (p.n || "") + " " + (p.h || "")).toLowerCase().includes(q));
   }
   return posts;
 }
 
-function avatarHtml(name,photo){
-  if(photo)return `<img src="${photo}" alt="${name}">`;
-  return `<span>${(name||"U").charAt(0).toUpperCase()}</span>`;
+function avatarHtml(name, photo) {
+  if (photo) return `<img src="${photo}" alt="${name}">`;
+  return `<span>${(name || "U").charAt(0).toUpperCase()}</span>`;
 }
 
-function renderFeed(){
-  const box=$("feed");
-  box.innerHTML="";
-  const posts=getFilteredPosts();
+function renderFeed() {
+  const box = $("feed");
+  box.innerHTML = "";
+  const posts = getFilteredPosts();
 
-  if(!posts.length){
-    box.append(mk("p","empty",viewMode==="saved"?"अभी कोई सेव्ड शायरी नहीं है।":viewMode==="profile"?"आपने अभी कोई पोस्ट नहीं की है।":"कोई शायरी नहीं मिली।"));
+  if (!posts.length) {
+    box.append(
+      mk(
+        "p",
+        "empty",
+        viewMode === "saved"
+          ? "अभी कोई पसंदीदा शायरी नहीं है।"
+          : viewMode === "profile"
+          ? "आपने अभी कोई पोस्ट नहीं की है।"
+          : "कोई शायरी नहीं मिली।"
+      )
+    );
     return;
   }
 
-  const visible=posts.slice(0,250);
-  visible.forEach((p,idx)=>{
-    const card=mk("article","post");
-    card.dataset.pid=p.id;
-    const author=p.n||"शायरी";
-    const isMe=(myProfile.name||"").trim().toLowerCase()===author.trim().toLowerCase();
-    const avaSrc=(isMe&&myProfile.photo)||p.authorPhoto||"";
+  const visible = posts.slice(0, 120);
+  visible.forEach((p, idx) => {
+    const card = mk("article", "post");
+    card.dataset.pid = p.id;
+    const author = p.n || "शायरी";
+    const isMe = (myProfile.name || "").trim().toLowerCase() === author.trim().toLowerCase();
+    const avaSrc = (isMe && myProfile.photo) || p.authorPhoto || "";
 
-    const top=mk("div","post-top");
-    const uDiv=mk("div","p-user");
-    uDiv.innerHTML=`<div class="p-ava">${avatarHtml(author,avaSrc)}</div><div class="p-name">${author}</div>`;
+    const top = mk("div", "post-top");
+    const uDiv = mk("div", "p-user");
+    uDiv.innerHTML = `<div class="p-ava">${avatarHtml(author, avaSrc)}</div><div class="p-name">${author}</div>`;
 
-    const rActs=mk("div","post-top-acts");
-    const colBtn=mk("button","collab-btn","COLLAB");
-    colBtn.type="button";
-    colBtn.onclick=()=>openStudio((p.t||"")+"\n",p.c,author);
+    const rActs = mk("div", "post-top-acts");
+    const colBtn = mk("button", "collab-btn", "COLLAB");
+    colBtn.type = "button";
+    colBtn.onclick = () => openStudio((p.t || "") + "\n", p.c, author);
     rActs.appendChild(colBtn);
 
-    if(canEditOrDelete(p)){
-      const edBtn=mk("button","mini-act","✏️ Edit");
-      edBtn.type="button";
-      edBtn.onclick=()=>openStudio(p.t||"",p.c,"",p);
+    if (canEditOrDelete(p)) {
+      const edBtn = mk("button", "mini-act", "✏️ Edit");
+      edBtn.type = "button";
+      edBtn.onclick = () => openStudio(p.t || "", p.c, "", p);
 
-      const dlBtn=mk("button","mini-act","🗑️ Delete");
-      dlBtn.type="button";
-      dlBtn.onclick=()=>deletePost(p.id);
+      const dlBtn = mk("button", "mini-act", "🗑️ Delete");
+      dlBtn.type = "button";
+      dlBtn.onclick = () => deletePost(p.id);
 
-      rActs.append(edBtn,dlBtn);
+      rActs.append(edBtn, dlBtn);
     }
 
-    top.append(uDiv,rActs);
+    top.append(uDiv, rActs);
     card.appendChild(top);
 
-    const wIdx=p.b!=null?p.b:(idx%WALLS.length);
-    const qDiv=mk("div","q-canvas");
-    qDiv.style.backgroundImage=wallUrl(wIdx,p.img);
-    qDiv.style.color=p.col||"#ff69b4";
-    qDiv.style.textAlign=p.al||"center";
+    const wIdx = p.b != null ? p.b : (idx % WALLS.length);
+    const wObj = WALLS[Math.abs(wIdx) % WALLS.length] || WALLS[0];
+    const qDiv = mk("div", "q-canvas");
+    qDiv.style.backgroundImage = wallUrl(wIdx, p.img);
+    qDiv.style.color = p.col || (wObj.dark ? "#ffffff" : "#2d1a38");
+    qDiv.style.textAlign = p.al || "center";
+    if (!wObj.dark && !p.img) qDiv.style.textShadow = "none";
+    else qDiv.style.textShadow = "0 1px 4px rgba(0,0,0,0.68)";
 
-    if(p.t){
-      const pt=mk("p",null,p.t);
-      if(p.f)pt.style.fontFamily=p.f+",serif";
+    if (p.t) {
+      const pt = mk("p", null, p.t);
+      if (p.f) pt.style.fontFamily = p.f + ", serif";
       qDiv.appendChild(pt);
     }
-    if(!p.isBase){
-      qDiv.append(mk("span","q-sig","— "+author));
+    if (!p.isBase) {
+      qDiv.append(mk("span", "q-sig", "— " + author));
     }
-    qDiv.append(mk("span","wm","शायरी"));
-    qDiv.onclick=()=>openReader(visible,idx);
+    qDiv.append(mk("span", "wm", "शायरी"));
+    qDiv.onclick = () => openReader(visible, idx);
     card.appendChild(qDiv);
 
-    const meta=mk("div","post-meta");
-    const tags=(p.h?p.h+" ":"")+"#"+p.c+(p.collabWith?" #collab":"");
-    meta.innerHTML=`<div class="p-tags">${tags}</div><div class="p-time">${timeAgo(p.ts)}</div>`;
+    const meta = mk("div", "post-meta");
+    const tags = (p.h ? p.h + " " : "") + "#" + p.c + (p.collabWith ? " #collab" : "");
+    meta.innerHTML = `<div class="p-tags">${tags}</div><div class="p-time">${timeAgo(p.ts)}</div>`;
     card.appendChild(meta);
 
-    const bar=mk("div","post-bar");
-    const left=mk("div","bar-left");
-    const right=mk("div","bar-right");
+    // Strictly 4 buttons: Like, Comment, Collab, Share
+    const bar = mk("div", "post-bar");
+    const left = mk("div", "bar-left");
+    const right = mk("div", "bar-right");
 
-    const lk=mk("button","act");lk.type="button";lk.dataset.k="like";
-    lk.onclick=()=>toggleLike(p.id,card);
+    const lk = mk("button", "act");
+    lk.type = "button";
+    lk.dataset.k = "like";
+    lk.onclick = () => toggleLike(p.id, card);
 
-    const cm=mk("button","act");cm.type="button";cm.dataset.k="cm";
-    cm.onclick=()=>{
-      const ex=card.querySelector(".cbox");
-      if(ex){ex.remove();return}
-      const cb=mk("div","cbox"),cl=mk("div","clist"),row=mk("div","crow");
-      const inp=mk("input");inp.placeholder="कमेंट लिखें…";inp.maxLength=240;
-      const go=mk("button",null,"भेजें");go.type="button";
-      go.onclick=()=>{const t=inp.value.trim();if(!t)return;inp.value="";addComment(p.id,t,card)};
-      inp.onkeydown=e=>{if(e.key==="Enter")go.click()};
-      row.append(inp,go);cb.append(cl,row);card.appendChild(cb);updatePostCard(card);
+    const cm = mk("button", "act");
+    cm.type = "button";
+    cm.dataset.k = "cm";
+    cm.onclick = () => {
+      const ex = card.querySelector(".cbox");
+      if (ex) {
+        ex.remove();
+        return;
+      }
+      const cb = mk("div", "cbox");
+      const cl = mk("div", "clist");
+      const row = mk("div", "crow");
+      const inp = mk("input");
+      inp.placeholder = "कमेंट लिखें…";
+      inp.maxLength = 240;
+      const go = mk("button", null, "भेजें");
+      go.type = "button";
+      go.onclick = () => {
+        const t = inp.value.trim();
+        if (!t) return;
+        inp.value = "";
+        addComment(p.id, t, card);
+      };
+      inp.onkeydown = e => {
+        if (e.key === "Enter") go.click();
+      };
+      row.append(inp, go);
+      cb.append(cl, row);
+      card.appendChild(cb);
+      updatePostCard(card);
     };
 
-    const cbBtn=mk("button","act","🤝");cbBtn.type="button";cbBtn.title="Collab";
-    cbBtn.onclick=()=>openStudio((p.t||"")+"\n",p.c,author);
+    const cbBtn = mk("button", "act", "🤝 Collab");
+    cbBtn.type = "button";
+    cbBtn.onclick = () => openStudio((p.t || "") + "\n", p.c, author);
 
-    const sv=mk("button","act");sv.type="button";sv.dataset.k="save";
-    sv.onclick=()=>{
-      if(myS[p.id])delete myS[p.id];else myS[p.id]=1;
-      setS("sh_s",myS);updatePostCard(card);
-      toast(myS[p.id]?"सेव हो गया 🔖":"सेव से हटाया गया");
-    };
+    const sh = mk("button", "act", "↗ Share");
+    sh.type = "button";
+    sh.onclick = () => shareText((p.t || "") + "\n— " + author);
 
-    const wa=mk("button","act","💬 WA");wa.type="button";
-    wa.onclick=()=>window.open("https://wa.me/?text="+encodeURIComponent((p.t||"")+"\n— "+author),"_blank","noopener");
-
-    const sh=mk("button","act","↗");sh.type="button";
-    sh.onclick=()=>shareText((p.t||"")+"\n— "+author);
-
-    left.append(lk,cm,cbBtn);
-    right.append(sv,wa,sh);
-    bar.append(left,right);
+    left.append(lk, cm);
+    right.append(cbBtn, sh);
+    bar.append(left, right);
     card.appendChild(bar);
     box.appendChild(card);
     updatePostCard(card);
   });
 }
 
-function shareText(txt,shareUrl){
-  const payload={title:"शायरी",text:txt};
-  if(shareUrl&&/^https?:\/\//i.test(shareUrl))payload.url=shareUrl;
-  const copyFallback=()=>{
-    const full=shareUrl?`${txt}\n${shareUrl}`:txt;
-    if(navigator.clipboard&&navigator.clipboard.writeText){
-      navigator.clipboard.writeText(full).then(()=>toast("लिंक/शायरी कॉपी हो गई ✨")).catch(()=>{});
-      return;
+function shareText(txt, shareUrl) {
+  const payload = { title: "शायरी", text: txt };
+  if (shareUrl && /^https?:\/\//i.test(shareUrl)) payload.url = shareUrl;
+  const copyFallback = () => {
+    const full = shareUrl ? `${txt}\n${shareUrl}` : txt;
+    const ta = document.createElement("textarea");
+    ta.value = full;
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand("copy");
+      toast("कॉपी हो गया ✨");
+    } catch (e) {
+      toast("शेयर के लिए तैयार");
     }
-    const ta=document.createElement("textarea");
-    ta.value=full;document.body.appendChild(ta);ta.select();
-    try{document.execCommand("copy");toast("कॉपी हो गया ✨")}catch(e){toast("शेयर तैयार है")}
     ta.remove();
   };
-  if(navigator.share){
-    navigator.share(payload).catch(err=>{
-      if(!err||err.name!=="AbortError")copyFallback();
+  if (navigator.share) {
+    navigator.share(payload).catch(err => {
+      if (!err || err.name !== "AbortError") copyFallback();
     });
-  }else{
+  } else {
     copyFallback();
   }
 }
 
-let stStep=1,stWall=0,stCol="#ff69b4",stCustomImg="",stCollabAuthor="",editingPost=null;
+// 3-step Studio logic
+let stStep = 1, stWall = 0, stCol = "#ffffff", stCustomImg = "", stCollabAuthor = "", editingPost = null;
 
-function openStudio(prefill="",cat="रोमांटिक",collabAuthor="",existing=null){
-  editingPost=existing;
-  stStep=1;
-  stCustomImg=existing&&existing.img?existing.img:"";
-  stCollabAuthor=collabAuthor||(existing&&existing.collabWith)||"";
+function openStudio(prefill = "", cat = "रोमांटिक", collabAuthor = "", existing = null) {
+  editingPost = existing;
+  stStep = 1;
+  stCustomImg = existing && existing.img ? existing.img : "";
+  stCollabAuthor = collabAuthor || (existing && existing.collabWith) || "";
   refreshCategorySelects(cat);
 
-  $("cText").value=prefill;
-  $("charLeft").textContent=String(1200-prefill.length);
-  $("collabTag").textContent=existing?"✏️ पोस्ट एडिट हो रही है":(stCollabAuthor?("🤝 Collab with "+stCollabAuthor):"");
-  if(getCats().includes(cat)){$("cCat").value=cat;$("sCatFinal").value=cat}
-  $("cName").value=(existing&&existing.n)||myProfile.name||"";
-  $("cHash").value=(existing&&existing.h)||"";
-  $("cFont").value=(existing&&existing.f)||"Tiro Devanagari Hindi";
-  $("cAlign").value=(existing&&existing.al)||"center";
-  stWall=(existing&&existing.b!=null)?existing.b:0;
-  stCol=(existing&&existing.col)||"#ff69b4";
+  $("cText").value = prefill;
+  $("charLeft").textContent = String(1200 - prefill.length);
+  $("collabTag").textContent = existing ? "✏️ पोस्ट एडिट हो रही है" : (stCollabAuthor ? ("🤝 Collab with " + stCollabAuthor) : "");
+  if (getCats().includes(cat)) {
+    $("cCat").value = cat;
+    $("sCatFinal").value = cat;
+  }
+  $("cName").value = (existing && existing.n) || myProfile.name || "";
+  $("cHash").value = (existing && existing.h) || "";
+  $("cFont").value = (existing && existing.f) || "Tiro Devanagari Hindi";
+  $("cAlign").value = (existing && existing.al) || "center";
+  stWall = existing && existing.b != null ? existing.b : 0;
+  const wObj = WALLS[Math.abs(stWall) % WALLS.length] || WALLS[0];
+  stCol = (existing && existing.col) || (wObj.dark ? "#ffffff" : "#2d1a38");
 
   showStep(1);
   $("studio").classList.add("open");
   $("cText").focus();
 }
 
-function showStep(n){
-  stStep=n;
-  [1,2,3].forEach(i=>$("step"+i).classList.toggle("active",i===n));
-  $("stTitle").textContent=n===1?"Compose":n===2?"Design":"Share";
-  $("stNext").style.visibility=n===3?"hidden":"visible";
+function showStep(n) {
+  stStep = n;
+  [1, 2, 3].forEach(i => $("step" + i).classList.toggle("active", i === n));
+  $("stTitle").textContent = n === 1 ? "Compose" : n === 2 ? "Design" : "Share";
+  $("stNext").style.visibility = n === 3 ? "hidden" : "visible";
   syncPreview();
 }
 
-function syncPreview(){
-  const txt=$("cText").value.trim()||"आपकी शायरी यहाँ दिखेगी";
-  const nm=$("cName").value.trim()||myProfile.name||"आपका नाम";
-  const f=$("cFont").value;
-  const al=$("cAlign").value;
-  const bg=wallUrl(stWall,stCustomImg);
+function syncPreview() {
+  const txt = $("cText").value.trim() || "आपकी शायरी यहाँ दिखेगी";
+  const nm = $("cName").value.trim() || myProfile.name || "आपका नाम";
+  const f = $("cFont").value;
+  const al = $("cAlign").value;
+  const bg = wallUrl(stWall, stCustomImg);
+  const wObj = WALLS[Math.abs(stWall) % WALLS.length] || WALLS[0];
 
-  ["dCard","sCard"].forEach(id=>{
-    const el=$(id);
-    el.style.backgroundImage=bg;
-    el.style.color=stCol;
-    el.style.textShadow="0 1px 4px rgba(0,0,0,.72)";
-    el.style.textAlign=al;
+  ["dCard", "sCard"].forEach(id => {
+    const el = $(id);
+    el.style.backgroundImage = bg;
+    el.style.color = stCol;
+    el.style.textShadow = wObj.dark || stCustomImg ? "0 1px 4px rgba(0,0,0,0.65)" : "none";
+    el.style.textAlign = al;
   });
-  ["dPreviewText","sPreviewText"].forEach(id=>{
-    const p=$(id);p.textContent=txt;p.style.fontFamily=f+",serif";
+  ["dPreviewText", "sPreviewText"].forEach(id => {
+    const p = $(id);
+    p.textContent = txt;
+    p.style.fontFamily = f + ", serif";
   });
-  ["dPreviewSig","sPreviewSig"].forEach(id=>{
-    $(id).textContent="— "+nm;
+  ["dPreviewSig", "sPreviewSig"].forEach(id => {
+    $(id).textContent = "— " + nm;
   });
 }
 
-(()=>{
+(() => {
   refreshCategorySelects("रोमांटिक");
 
-  const wg=$("wallGrid");
-  const upTile=mk("div","wall-tile","📷 Add Image");
-  upTile.onclick=()=>$("imgUpload").click();
+  const wg = $("wallGrid");
+  const upTile = mk("div", "wall-tile", "📷 Upload");
+  upTile.onclick = () => $("imgUpload").click();
   wg.appendChild(upTile);
 
-  WALLS.forEach((w,i)=>{
-    const t=mk("div","wall-tile");
-    t.style.backgroundImage=wallUrl(i,"");
-    t.onclick=()=>{
-      stWall=i;stCustomImg="";
-      stCol="#ff69b4";
-      [...wg.children].forEach(x=>x.classList.remove("active"));
+  WALLS.forEach((w, i) => {
+    const t = mk("div", "wall-tile", w.label);
+    t.style.backgroundImage = `url("${w.bg}")`;
+    t.style.color = w.dark ? "#ffffff" : "#2d1a38";
+    t.onclick = () => {
+      stWall = i;
+      stCustomImg = "";
+      stCol = w.dark ? "#ffffff" : "#2d1a38";
+      [...wg.children].forEach(x => x.classList.remove("active"));
       t.classList.add("active");
       syncPreview();
     };
-    if(i===0)t.classList.add("active");
+    if (i === 0) t.classList.add("active");
     wg.appendChild(t);
   });
 
-  $("imgUpload").onchange=e=>{
-    const file=e.target.files&&e.target.files[0];
-    if(!file)return;
-    const reader=new FileReader();
-    reader.onload=ev=>{
-      compressImage(ev.target.result,720,0.72,out=>{
-        stCustomImg=out;
-        stCol="#ff69b4";
+  $("imgUpload").onchange = e => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      compressImage(ev.target.result, 720, 0.72, out => {
+        stCustomImg = out;
+        stCol = "#ffffff";
         syncPreview();
         toast("फ़ोटो लग गई है 🖼️");
       });
@@ -1231,134 +2450,164 @@ function syncPreview(){
     reader.readAsDataURL(file);
   };
 
-  const cs=$("colorSwatches");
-  TEXT_COLORS.forEach(col=>{
-    const s=mk("button","swatch");s.type="button";s.style.background=col;
-    s.onclick=()=>{stCol=col;syncPreview()};
+  const cs = $("colorSwatches");
+  TEXT_COLORS.forEach(col => {
+    const s = mk("button", "swatch");
+    s.type = "button";
+    s.style.background = col;
+    s.onclick = () => {
+      stCol = col;
+      syncPreview();
+    };
     cs.appendChild(s);
   });
 
-  $("tabWall").onclick=()=>{
-    $("tabWall").classList.add("active");$("tabText").classList.remove("active");
-    $("panelWall").style.display="grid";$("panelText").style.display="none";
-  };
-  $("tabText").onclick=()=>{
-    $("tabText").classList.add("active");$("tabWall").classList.remove("active");
-    $("panelText").style.display="grid";$("panelWall").style.display="none";
+  $("tabWall").onclick = () => {
+    $("tabWall").classList.add("active");
+    $("tabText").classList.remove("active");
+    $("panelWall").style.display = "grid";
+    $("panelText").style.display = "none";
   };
 
-  $("cCat").onchange=()=>{$("sCatFinal").value=$("cCat").value};
-  $("sCatFinal").onchange=()=>{$("cCat").value=$("sCatFinal").value};
+  $("tabText").onclick = () => {
+    $("tabText").classList.add("active");
+    $("tabWall").classList.remove("active");
+    $("panelText").style.display = "grid";
+    $("panelWall").style.display = "none";
+  };
 
-  $("addCatBtn").onclick=()=>{
-    const nc=$("newCatInp").value.trim();
-    if(!nc){toast("नई श्रेणी का नाम लिखें");return}
-    if(!getCats().includes(nc)){
-      customCats.push(nc);
-      setS("sh_custom_cats",customCats);
+  $("cCat").onchange = () => {
+    $("sCatFinal").value = $("cCat").value;
+  };
+  $("sCatFinal").onchange = () => {
+    $("cCat").value = $("sCatFinal").value;
+  };
+
+  $("addCatBtn").onclick = () => {
+    const nc = $("newCatInp").value.trim();
+    if (!nc) {
+      toast("नई श्रेणी का नाम लिखें");
+      return;
     }
-    $("newCatInp").value="";
+    if (!getCats().includes(nc)) {
+      customCats.push(nc);
+      setS("sh_custom_cats_v1", customCats);
+    }
+    $("newCatInp").value = "";
     refreshCategorySelects(nc);
     renderChips();
-    toast("नई श्रेणी जुड़ गई: "+nc);
+    toast("नई श्रेणी जुड़ गई: " + nc);
   };
 
-  $("cText").oninput=()=>{$("charLeft").textContent=String(1200-$("cText").value.length)};
-  $("cName").oninput=()=>{
-    myProfile.name=$("cName").value.trim()||"User";
-    setS("sh_profile",myProfile);
+  $("cText").oninput = () => {
+    $("charLeft").textContent = String(1200 - $("cText").value.length);
+  };
+
+  $("cName").oninput = () => {
+    myProfile.name = $("cName").value.trim() || "Prince";
+    setS("sh_profile_v1", myProfile);
     syncPreview();
   };
-  $("cFont").onchange=syncPreview;
-  $("cAlign").onchange=syncPreview;
 
-  $("stBack").onclick=()=>{
-    if(stStep>1)showStep(stStep-1);
+  $("cFont").onchange = syncPreview;
+  $("cAlign").onchange = syncPreview;
+
+  $("stBack").onclick = () => {
+    if (stStep > 1) showStep(stStep - 1);
     else $("studio").classList.remove("open");
   };
-  $("stNext").onclick=()=>{
-    if(stStep===1&&$("cText").value.trim().length<2){toast("पहले अपनी शायरी लिखें");return}
-    if(stStep<3)showStep(stStep+1);
+
+  $("stNext").onclick = () => {
+    if (stStep === 1 && $("cText").value.trim().length < 2) {
+      toast("पहले अपनी शायरी लिखें");
+      return;
+    }
+    if (stStep < 3) showStep(stStep + 1);
   };
 
-  $("btnPublish").onclick=async()=>{
-    const t=$("cText").value.trim();
-    if(t.length<2){toast("पहले शायरी लिखें");return}
-    const n=$("cName").value.trim()||myProfile.name||"User";
-    myProfile.name=n;setS("sh_profile",myProfile);
+  $("btnPublish").onclick = () => {
+    const t = $("cText").value.trim();
+    if (t.length < 2) {
+      toast("पहले शायरी लिखें");
+      return;
+    }
+    const n = $("cName").value.trim() || myProfile.name || "Prince";
+    myProfile.name = n;
+    setS("sh_profile_v1", myProfile);
 
-    const c=$("sCatFinal").value||$("cCat").value;
-    const h=$("cHash").value.trim();
-    const postId=editingPost?editingPost.id:("u_"+Date.now()+"_"+Math.random().toString(36).slice(2,6));
+    const c = $("sCatFinal").value || $("cCat").value;
+    const h = $("cHash").value.trim();
+    const postId = editingPost ? editingPost.id : ("u_" + Date.now() + "_" + Math.random().toString(36).slice(2, 6));
 
-    const post={
-      id:postId,
-      t,n,c,h,
-      authorPhoto:myProfile.photo||"",
-      b:stWall,
-      col:stCol,
-      f:$("cFont").value,
-      al:$("cAlign").value,
-      img:stCustomImg||"",
-      collabWith:stCollabAuthor||"",
-      ts:editingPost?editingPost.ts:Date.now()
+    const post = {
+      id: postId,
+      t,
+      n,
+      c,
+      h,
+      authorPhoto: myProfile.photo || "",
+      b: stWall,
+      col: stCol,
+      f: $("cFont").value,
+      al: $("cAlign").value,
+      img: stCustomImg || "",
+      collabWith: stCollabAuthor || "",
+      ts: editingPost ? editingPost.ts : Date.now()
     };
 
-    cachedPosts=cachedPosts.filter(x=>x.id!==postId);
+    cachedPosts = cachedPosts.filter(x => x.id !== postId);
     cachedPosts.unshift(post);
-    setS("sh_cached_posts",cachedPosts.slice(0,300));
-    editingPost=null;
+    setS("sh_posts_v1", cachedPosts.slice(0, 250));
+    editingPost = null;
 
     $("studio").classList.remove("open");
-    curCat="सभी";viewMode="home";updateNav();renderChips();renderFeed();
-    toast("पोस्ट सेव व पब्लिश हो गई ✨");
-
-    if(isLive&&db){
-      try{
-        const cloudPost=Object.assign({},post);
-        await db.collection("shayari_posts").doc(postId).set(cloudPost,{merge:true});
-      }catch(e){}
-    }
+    curCat = "सभी";
+    viewMode = "home";
+    updateNav();
+    renderChips();
+    renderFeed();
+    toast("शायरी पब्लिश हो गई ✨");
   };
 
-  $("btnWa").onclick=()=>{
-    const t=$("cText").value.trim();
-    const n=$("cName").value.trim()||myProfile.name||"शायरी";
-    window.open("https://wa.me/?text="+encodeURIComponent(t+"\n— "+n),"_blank","noopener");
+  $("btnShareCardText").onclick = () => {
+    const t = $("cText").value.trim() || "आपकी शायरी";
+    const n = $("cName").value.trim() || myProfile.name || "शायरी";
+    shareText(t + "\n— " + n);
   };
 
-  $("btnImg").onclick=()=>{
-    const t=$("cText").value.trim()||"आपकी शायरी";
-    const n=$("cName").value.trim()||myProfile.name||"आप";
-    saveShayariImage({t,n,c:$("sCatFinal").value||"शायरी",b:stWall,col:stCol,img:stCustomImg},stWall);
+  $("btnImg").onclick = () => {
+    const t = $("cText").value.trim() || "आपकी शायरी";
+    const n = $("cName").value.trim() || myProfile.name || "आप";
+    saveShayariImage({ t, n, c: $("sCatFinal").value || "शायरी", b: stWall, col: stCol, img: stCustomImg }, stWall);
   };
 })();
 
-let tempAvaPhoto=myProfile.photo||"";
+// Profile modal & header actions
+let tempAvaPhoto = myProfile.photo || "";
 
-function refreshAccAvaBox(){
-  $("accAvaBox").innerHTML=avatarHtml(myProfile.name||"User",tempAvaPhoto);
+function refreshAccAvaBox() {
+  $("accAvaBox").innerHTML = avatarHtml(myProfile.name || "User", tempAvaPhoto);
 }
 
-function openAccountModal(){
-  tempAvaPhoto=myProfile.photo||"";
-  $("accNameInp").value=myProfile.name||"";
-  $("accBioInp").value=myProfile.bio||"";
-  $("accMsg").textContent="";
+function openAccountModal() {
+  tempAvaPhoto = myProfile.photo || "";
+  $("accNameInp").value = myProfile.name || "";
+  $("accBioInp").value = myProfile.bio || "";
+  $("accMsg").textContent = "";
   refreshAccAvaBox();
   $("accModal").classList.add("open");
 }
 
-(()=>{
-  $("accClose").onclick=()=>$("accModal").classList.remove("open");
+(() => {
+  $("accClose").onclick = () => $("accModal").classList.remove("open");
 
-  $("accPhotoInp").onchange=e=>{
-    const f=e.target.files&&e.target.files[0];
-    if(!f)return;
-    const rd=new FileReader();
-    rd.onload=ev=>{
-      compressImage(ev.target.result,360,0.75,out=>{
-        tempAvaPhoto=out;
+  $("accPhotoInp").onchange = e => {
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    const rd = new FileReader();
+    rd.onload = ev => {
+      compressImage(ev.target.result, 360, 0.75, out => {
+        tempAvaPhoto = out;
         refreshAccAvaBox();
         toast("Profile Photo तैयार है");
       });
@@ -1366,172 +2615,178 @@ function openAccountModal(){
     rd.readAsDataURL(f);
   };
 
-  $("accSaveBtn").onclick=()=>{
-    const nm=$("accNameInp").value.trim()||"User";
-    const bio=$("accBioInp").value.trim();
-    myProfile={name:nm,bio,photo:tempAvaPhoto||""};
-    setS("sh_profile",myProfile);
-    $("accMsg").textContent="प्रोफ़ाइल और फोटो सेव हो गई है ✨";
+  $("accSaveBtn").onclick = () => {
+    const nm = $("accNameInp").value.trim() || "Prince";
+    const bio = $("accBioInp").value.trim();
+    myProfile = { name: nm, bio, photo: tempAvaPhoto || "" };
+    setS("sh_profile_v1", myProfile);
+    $("accMsg").textContent = "प्रोफ़ाइल सेव हो गई है ✨";
     renderFeed();
     toast("प्रोफ़ाइल सेव हो गई");
   };
 
-  $("topSearchBtn").onclick=()=>{
-    const sw=$("searchWrap");sw.classList.toggle("open");
-    if(sw.classList.contains("open"))$("qInp").focus();
+  $("topSearchBtn").onclick = () => {
+    const sw = $("searchWrap");
+    sw.classList.toggle("open");
+    if (sw.classList.contains("open")) $("qInp").focus();
   };
 
-  $("topBellBtn").onclick=()=>{
-    const nl=$("notifList");nl.innerHTML="";
-    if(!cachedPosts.length){
-      nl.append(mk("p","empty","अभी कोई नई गतिविधि नहीं है।"));
-    }else{
-      cachedPosts.slice(0,15).forEach(p=>{
-        const item=mk("div","notif-item");
-        item.innerHTML=`<b>${p.n||"User"}</b>: “${(p.t||"").slice(0,55)}”`;
+  $("topBellBtn").onclick = () => {
+    const nl = $("notifList");
+    nl.innerHTML = "";
+    const recent = cachedPosts.slice(0, 12);
+    if (!recent.length) {
+      nl.append(mk("p", "empty", "अभी कोई नई गतिविधि नहीं है। नई शायरी लिखने के लिए + दबाएँ।"));
+    } else {
+      recent.forEach(p => {
+        const item = mk("div", "notif-item");
+        item.innerHTML = `<b>${p.n || "User"}</b> (${p.c || "शायरी"}): “${(p.t || "").slice(0, 56)}”`;
         nl.appendChild(item);
       });
     }
     $("notifModal").classList.add("open");
   };
-  $("notifClose").onclick=()=>$("notifModal").classList.remove("open");
+  $("notifClose").onclick = () => $("notifModal").classList.remove("open");
 
-  let deferredPrompt=null;
-  window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e});
+  let deferredPrompt = null;
+  window.addEventListener("beforeinstallprompt", e => {
+    e.preventDefault();
+    deferredPrompt = e;
+  });
 
-  function getFullHtmlString(){
-    return "<!DOCTYPE html>\n"+document.documentElement.outerHTML;
-  }
-
-  $("topShareBtn").onclick=()=>{
-    const autoHttp=/^https?:\/\//i.test(location.href)?location.href:savedSiteUrl;
-    $("siteLinkInp").value=autoHttp||"https://princeorviel.github.io/Nikk/";
-    $("shareAppMsg").textContent="यहाँ से वेबसाइट लिंक शेयर करें या ऐप/फ़ाइल इंस्टॉल व डाउनलोड करें।";
+  $("topShareBtn").onclick = () => {
+    const autoHttp = /^https?:\/\//i.test(location.href) ? location.href : savedSiteUrl;
+    $("siteLinkInp").value = autoHttp || "https://princeorviel.github.io/Nikk/";
+    $("shareAppMsg").textContent = "यहाँ से वेबसाइट लिंक शेयर करें या ऐप को होम स्क्रीन पर जोड़ें।";
     $("shareAppModal").classList.add("open");
   };
-  $("shareAppClose").onclick=()=>$("shareAppModal").classList.remove("open");
+  $("shareAppClose").onclick = () => $("shareAppModal").classList.remove("open");
 
-  $("siteLinkInp").oninput=()=>{
-    const v=$("siteLinkInp").value.trim();
-    savedSiteUrl=v;setS("sh_site_url",v);
+  $("siteLinkInp").oninput = () => {
+    const v = $("siteLinkInp").value.trim();
+    savedSiteUrl = v;
+    setS("sh_site_url_v1", v);
   };
 
-  $("actShareApp").onclick=()=>{
-    const link=$("siteLinkInp").value.trim()||(/^https?:\/\//i.test(location.href)?location.href:"https://princeorviel.github.io/Nikk/");
-    shareText("शायरी — दिल की बात, शायरी के साथ ✨",link);
+  $("actShareApp").onclick = () => {
+    const link = $("siteLinkInp").value.trim() || "https://princeorviel.github.io/Nikk/";
+    shareText("शायरी — दिल की बात, शायरी के साथ ✨", link);
   };
 
-  $("actShareFile").onclick=async()=>{
-    const htmlStr=getFullHtmlString();
-    try{
-      const file=new File([htmlStr],"शायरी.html",{type:"text/html"});
-      if(navigator.canShare&&navigator.canShare({files:[file]})){
-        await navigator.share({title:"शायरी ऐप",files:[file]});
-        return;
-      }
-    }catch(e){}
-    $("actDownloadHtml").click();
+  $("actCopyLink").onclick = () => {
+    const link = $("siteLinkInp").value.trim() || "https://princeorviel.github.io/Nikk/";
+    shareText(link);
   };
 
-  $("actDownloadHtml").onclick=()=>{
-    const htmlStr=getFullHtmlString();
-    const dataHref="data:text/html;charset=utf-8,"+encodeURIComponent(htmlStr);
-    const a=document.createElement("a");
-    a.href=dataHref;
-    a.download="शायरी.html";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    $("shareAppMsg").textContent="शायरी.html डाउनलोड शुरू हो गई है।";
-    toast("डाउनलोड शुरू हो गया ⬇️");
-  };
-
-  $("actInstallApp").onclick=async()=>{
-    if(deferredPrompt){
+  $("actInstallApp").onclick = async () => {
+    if (deferredPrompt) {
       deferredPrompt.prompt();
-      const res=await deferredPrompt.userChoice;
-      deferredPrompt=null;
-      $("shareAppMsg").textContent=res&&res.outcome==="accepted"?"ऐप इंस्टॉल हो रहा है 📲":"इंस्टॉल रद्द किया गया।";
+      const res = await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      $("shareAppMsg").textContent = res && res.outcome === "accepted" ? "ऐप इंस्टॉल हो रहा है 📲" : "इंस्टॉल रद्द किया गया।";
       return;
     }
-    $("shareAppMsg").textContent="ऊपर दाएँ कोने में Chrome के 3 डॉट (⋮) दबाएँ → 'Add to Home screen' चुनें।";
+    $("shareAppMsg").textContent = "ब्राउज़र मेनू (⋮) में जाकर 'Add to Home screen' चुनें।";
   };
 
-  $("themeBtn").onclick=()=>{
-    const r=document.documentElement;
-    r.dataset.theme=r.dataset.theme==="dark"?"light":"dark";
+  $("themeBtn").onclick = () => {
+    const r = document.documentElement;
+    r.dataset.theme = r.dataset.theme === "dark" ? "light" : "dark";
   };
 
-  $("topCatGridBtn").onclick=()=>{
-    const dr=$("catDrawer");
-    const open=dr.classList.toggle("open");
-    $("topCatGridBtn").setAttribute("aria-expanded",String(open));
+  $("topCatGridBtn").onclick = () => {
+    const dr = $("catDrawer");
+    const open = dr.classList.toggle("open");
+    $("topCatGridBtn").setAttribute("aria-expanded", String(open));
     renderCatGrid();
   };
-  $("closeCatDrawer").onclick=()=>{
+
+  $("closeCatDrawer").onclick = () => {
     $("catDrawer").classList.remove("open");
-    $("topCatGridBtn").setAttribute("aria-expanded","false");
+    $("topCatGridBtn").setAttribute("aria-expanded", "false");
   };
 
-  $("jumpTop").onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
-  $("jumpBottom").onclick=()=>window.scrollTo({top:document.documentElement.scrollHeight,behavior:"smooth"});
+  $("jumpTop").onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  $("jumpBottom").onclick = () => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
 })();
 
-if(isLive&&db){
-  db.collection("shayari_posts").orderBy("ts","desc").limit(250).onSnapshot(snap=>{
-    const incoming=snap.docs.map(d=>Object.assign({id:d.id},d.data()));
-    if(incoming.length){
-      cachedPosts=incoming;
-      setS("sh_cached_posts",cachedPosts);
-      renderChips();renderFeed();
-    }
-  },()=>{});
-
-  db.collection("shayari_interactions").onSnapshot(snap=>{
-    snap.docs.forEach(d=>{liveLikes[d.id]=(d.data()||{}).likes||0});
-    document.querySelectorAll(".post").forEach(updatePostCard);
-  },()=>{});
-
-  db.collection("shayari_comments").orderBy("ts","asc").onSnapshot(snap=>{
-    Object.keys(liveComms).forEach(k=>delete liveComms[k]);
-    snap.docs.forEach(d=>{const v=d.data()||{};if(v.pid)(liveComms[v.pid]=liveComms[v.pid]||[]).push(v)});
-    document.querySelectorAll(".post").forEach(updatePostCard);
-  },()=>{});
+function updateNav() {
+  $("navHome").classList.toggle("active", viewMode === "home");
+  $("navSaved").classList.toggle("active", viewMode === "saved");
+  $("navProfile").classList.toggle("active", viewMode === "profile");
 }
 
-function updateNav(){
-  $("navHome").classList.toggle("active",viewMode==="home");
-  $("navSaved").classList.toggle("active",viewMode==="saved");
-  $("navProfile").classList.toggle("active",viewMode==="profile");
-}
-
-$("navHome").onclick=()=>{closeAllModalsOnStart();location.reload()};
-$("navSearch").onclick=()=>{
-  const sw=$("searchWrap");sw.classList.toggle("open");
-  if(sw.classList.contains("open"))$("qInp").focus();
+$("navHome").onclick = () => {
+  closeAllModalsOnStart();
+  viewMode = "home";
+  curCat = "सभी";
+  updateNav();
+  renderChips();
+  renderFeed();
+  window.scrollTo({ top: 0, behavior: "smooth" });
 };
-$("navPlus").onclick=()=>openStudio();
-$("navSaved").onclick=()=>{viewMode="saved";updateNav();renderChips();renderFeed()};
-$("navProfile").onclick=()=>{viewMode="profile";updateNav();renderChips();renderFeed();openAccountModal()};
 
-$("qInp").oninput=e=>{searchQ=e.target.value;renderFeed()};
-$("qClr").onclick=()=>{$("qInp").value="";searchQ="";renderFeed()};
-$("nextHero").onclick=pickHero;
+$("navSearch").onclick = () => {
+  const sw = $("searchWrap");
+  sw.classList.toggle("open");
+  if (sw.classList.contains("open")) $("qInp").focus();
+};
 
-(()=>{
-  let taps=0,tm=null;
-  $("brandBtn").onclick=()=>{
+$("navPlus").onclick = () => openStudio();
+
+$("navSaved").onclick = () => {
+  viewMode = "saved";
+  updateNav();
+  renderChips();
+  renderFeed();
+};
+
+$("navProfile").onclick = () => {
+  viewMode = "profile";
+  updateNav();
+  renderChips();
+  renderFeed();
+  openAccountModal();
+};
+
+$("qInp").oninput = e => {
+  searchQ = e.target.value;
+  renderFeed();
+};
+
+$("qClr").onclick = () => {
+  $("qInp").value = "";
+  searchQ = "";
+  renderFeed();
+};
+
+$("nextHero").onclick = pickHero;
+
+(() => {
+  let taps = 0, tm = null;
+  $("brandBtn").onclick = () => {
     taps++;
     clearTimeout(tm);
-    if(taps>=3){
-      taps=0;OWN=!OWN;setS("sh_owner",OWN?"1":"0");renderChips();renderFeed();
-      toast(OWN?"संख्या दिख रही है 📊":"संख्या छिप गई है");
+    if (taps >= 3) {
+      taps = 0;
+      OWN = !OWN;
+      setS("sh_owner_v1", OWN ? "1" : "0");
+      renderChips();
+      renderFeed();
+      toast(OWN ? "संख्या दिख रही है 📊" : "संख्या छिप गई है");
       return;
     }
-    tm=setTimeout(()=>{
-      if(taps===1){taps=0;closeAllModalsOnStart();location.reload()}
-      else taps=0;
-    },320);
+    tm = setTimeout(() => {
+      if (taps === 1) {
+        taps = 0;
+        closeAllModalsOnStart();
+        pickHero();
+        renderFeed();
+        toast("फ़ीड रिफ्रेश हो गई ✨");
+      } else {
+        taps = 0;
+      }
+    }, 300);
   };
 })();
 
@@ -1541,3 +2796,4 @@ renderFeed();
 </script>
 </body>
 </html>
+```
